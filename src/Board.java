@@ -1,2 +1,58 @@
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Board {
+    private ArrayList<Tile> tiles = new ArrayList<Tile>();
+    private ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
+    private int height;
+    private int width;
+    public Board (int h , int w)
+    {
+        this.height = h;
+        this.width = w;
+    }
+
+    public ArrayList<Tile> getTiles() {
+        return tiles;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return Enemies;
+    }
+
+    public void buildTileList(String stringList, Player myPlayer)
+    {
+
+        int currentIndexWidth = 0,currentIndexHeight = 0;
+        for (char tile : stringList.toCharArray())
+        {
+            String TileString =String.valueOf(tile);
+            if (currentIndexWidth >= width) {
+                currentIndexWidth = 0;
+                currentIndexHeight++;
+            }
+            if (tile == '@') {
+                tiles.add(myPlayer);
+            }
+            else tiles.add((new TileFactory()).Create(TileString));
+            currentIndexWidth++;
+        }
+    }
+    public void PrintGameBoard()
+    {
+        char [][] arr = new char[width][height];
+        int counter = 0;
+        for(int i=0; i<width;i++)
+        {
+            for (int j=0;j<height;j++)
+            {
+                Tile t = tiles.get(counter);
+                arr[t.getPosition().getX()][t.getPosition().getY()] = t.GetChar();
+                counter++;
+            }
+        }
+        System.out.println(Arrays.deepToString(arr));
+    }
+
 }
