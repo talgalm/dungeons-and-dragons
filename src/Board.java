@@ -23,8 +23,7 @@ public class Board {
 
     public void buildTileList(String stringList, Player myPlayer)
     {
-
-        int currentIndexWidth = 0,currentIndexHeight = 0;
+        int currentIndexWidth = 0, currentIndexHeight = 0;
         for (char tile : stringList.toCharArray())
         {
             String TileString =String.valueOf(tile);
@@ -32,8 +31,14 @@ public class Board {
                 currentIndexWidth = 0;
                 currentIndexHeight++;
             }
+            //*****we need to calculate position, as a field inside each unit.
+            //*****The player as well needs to have position when constructed
+            //***Therefore, we recommend to keep the chosen player as an int until this point of the code
+            //*****instead of passing the object Player as input and when constructed now
+            //*****it can be with the position. (using tilefactory)
             if (tile == '@') {
                 tiles.add(myPlayer);
+                //tiles.add((new TileFactory()).Create(PlayerString, position));
             }
             else tiles.add((new TileFactory()).Create(TileString));
             currentIndexWidth++;
@@ -41,14 +46,16 @@ public class Board {
     }
     public void PrintGameBoard()
     {
-        char [][] arr = new char[width][height];
+        char [][] arr = new char[width][height]; //**because of 2 comments below, changed to char arr**
+        // **We can also do this like that but then we will need to override toString to return char
         int counter = 0;
-        for(int i=0; i<width;i++)
+        for(int i = 0; i < width;i++)
         {
-            for (int j=0;j<height;j++)
+            for (int j = 0;j < height;j++) //***did you the mean opposite?***
             {
                 Tile t = tiles.get(counter);
-                arr[t.getPosition().getX()][t.getPosition().getY()] = t.GetChar();
+                arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar(); //**you wrote t.GetChar, we changed because problem with trap visibility**
+                //***we will change the return value of trap in toChar considering the ticking.
                 counter++;
             }
         }

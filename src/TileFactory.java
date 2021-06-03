@@ -4,7 +4,7 @@ public class TileFactory {
         switch (input)
         {
             case "1":
-                return new Warrior("Jon Snow", 300, 30, 4, 3);
+                return new Warrior("Jon Snow", 300, 30, 4, 3); //****shouldn't the value be not the name but '@'?****
             case "2":
                 return new Warrior("The Hound", 400, 20, 6, 5);
             case "3":
@@ -36,9 +36,9 @@ public class TileFactory {
             case "D":
                 return new Trap('D', "Death Trap", 500, 100, 20, 250, 1, 10);
             case ".":
-                return new Empty(".");
+                return new Empty('.');
             case "#":
-                return new Wall ("#");
+                return new Wall ('#');
         }
         return null;
     }

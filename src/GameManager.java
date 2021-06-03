@@ -9,7 +9,7 @@ public class GameManager {
         Scanner scanner = new Scanner(System.in);
 
         MenuMessage();
-        String chosenPlayer = scanner.nextLine();
+        String chosenPlayer = scanner.nextLine(); //*******Dina: we need to add a limit for values other than 1-6********
         Player myPlayer = (Player)(new TileFactory()).Create(chosenPlayer);
 
 
@@ -34,11 +34,11 @@ public class GameManager {
     }
     public static Board BuildLevel(String level, Player myPlayer)
     {
-        int width = level.charAt(level.length()-1);
-        int height = level.charAt(level.length()-2);
-        level = level.substring(0,level.length()-2);
+        int width = level.charAt(level.length()-1); //*****might be 2+ digits*****
+        int height = level.charAt(level.length()-2); //***same**** you might want to use "split"
+        level = level.substring(0,level.length()-2); //***same**
         Board board;
-        board = new Board(height , width);
+        board = new Board(height, width);
         board.buildTileList(level,myPlayer);
         return board;
     }
@@ -49,18 +49,18 @@ public class GameManager {
         String wantedLevel = "src/levels_dir/level"+levelNumber+".txt";
         String level = "";
         try {
-            File myObj = new File(wantedLevel);
+            File myObj = new File(wantedLevel); //************how did you know it? h'omer or internet?****************
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 width = data.length();
                 height++;
-                level += data;
+                level += data; //***********doesn't it make the same value as wantedLevel***************
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred."); //no more leveles
-            e.printStackTrace();
+            System.out.println("An error occurred."); //no more levels
+            e.printStackTrace(); //*****isn't it a problem to throw an error message?******
             level = "noMoreLevels";
         }
         level = level+height+width;
