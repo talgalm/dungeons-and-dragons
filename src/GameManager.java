@@ -9,22 +9,27 @@ public class GameManager {
         Scanner scanner = new Scanner(System.in);
 
         MenuMessage();
-        String chosenPlayer = scanner.nextLine(); //*******Dina: we need to add a limit for values other than 1-6********
-        Player myPlayer = (Player)(new TileFactory()).Create(chosenPlayer);
+        String chosenPlayer = scanner.nextLine();
+        while (Integer.parseInt(chosenPlayer)<1 || Integer.parseInt(chosenPlayer)>6 ) {
+            System.out.println("You entered wrong number , please choose number between 1 -6");
+            chosenPlayer = scanner.nextLine();
+        }
+
+        //Player myPlayer = (Player)(new TileFactory()).Create(chosenPlayer);
 
 
         boolean winner = false;
         int level_number = 1;
         while (!winner)
         {
-            String level =  ReadLevel(level_number);
+            Object [] level = ReadLevel(level_number);
             if (level.equals("noMoreLevels"))
                 winner = true;
             else
             {
                 level_number++;
-                Board b = BuildLevel(level,myPlayer);
-                GameLevel gameLevel = new GameLevel(b,myPlayer);
+                Board b = BuildLevel(level,chosenPlayer);
+                GameLevel gameLevel = new GameLevel(b);
                 gameLevel.init();
             }
         }
@@ -32,24 +37,21 @@ public class GameManager {
 
 
     }
-    public static Board BuildLevel(String level, Player myPlayer)
+    public static Board BuildLevel(Object[] level, String CharMyPlayer)
     {
-        int width = level.charAt(level.length()-1); //*****might be 2+ digits*****
-        int height = level.charAt(level.length()-2); //***same**** you might want to use "split"
-        level = level.substring(0,level.length()-2); //***same**
         Board board;
-        board = new Board(height, width);
-        board.buildTileList(level,myPlayer);
+        board = new Board((int) level[1], (int) level[2]);
+        board.buildTileList((String) level[0],CharMyPlayer);
         return board;
     }
-    public static String ReadLevel(int levelNumber)
+    public static Object[] ReadLevel(int levelNumber)
     {
         int height = 0;
         int width = 0;
         String wantedLevel = "src/levels_dir/level"+levelNumber+".txt";
         String level = "";
         try {
-            File myObj = new File(wantedLevel); //************how did you know it? h'omer or internet?****************
+            File myObj = new File(wantedLevel);
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
@@ -59,12 +61,19 @@ public class GameManager {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred."); //no more levels
+            System.out.println("No more levels");
             e.printStackTrace(); //*****isn't it a problem to throw an error message?******
             level = "noMoreLevels";
         }
-        level = level+height+width;
-        return level;
+        Object[] returnedValue = new Object[3];
+        returnedValue[0] = level;
+        returnedValue[1] = height;
+        returnedValue[2] = width;
+        return returnedValue;
+    }
+    public int findWidth(String l)
+    {
+        return 0;
     }
     public static void MenuMessage()
     {

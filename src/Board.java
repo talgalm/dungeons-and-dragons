@@ -7,10 +7,12 @@ public class Board {
     private ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
     private int height;
     private int width;
+    private Player ThePlayer;
     public Board (int h , int w)
     {
         this.height = h;
         this.width = w;
+        Position savePlayerPos = new Position(0,0);
     }
 
     public ArrayList<Tile> getTiles() {
@@ -21,7 +23,11 @@ public class Board {
         return Enemies;
     }
 
-    public void buildTileList(String stringList, Player myPlayer)
+    public Player getThePlayer() {
+        return ThePlayer;
+    }
+
+    public void buildTileList(String stringList, String CharMyPlayer)
     {
         int currentIndexWidth = 0, currentIndexHeight = 0;
         for (char tile : stringList.toCharArray())
@@ -37,10 +43,10 @@ public class Board {
             //*****instead of passing the object Player as input and when constructed now
             //*****it can be with the position. (using tilefactory)
             if (tile == '@') {
-                tiles.add(myPlayer);
-                //tiles.add((new TileFactory()).Create(PlayerString, position));
+                ThePlayer = (Player) (new TileFactory()).Create(CharMyPlayer, new Position(currentIndexWidth,currentIndexHeight));
+                tiles.add(ThePlayer);
             }
-            else tiles.add((new TileFactory()).Create(TileString));
+            else tiles.add((new TileFactory()).Create(TileString,new Position(currentIndexWidth,currentIndexHeight)));
             currentIndexWidth++;
         }
     }

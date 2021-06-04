@@ -7,11 +7,11 @@ public class GameLevel {
     private Player player;
     private ArrayList<Enemy> Enemies = new ArrayList<Enemy>(); //****can be erased****
     private int Tick;
-    public GameLevel (Board b , Player player)
+    public GameLevel (Board b)
     {
         this.Tick = 0;
         this.board = b;
-        this.player = player;
+        this.player = b.getThePlayer();
         this.Enemies = b.getEnemies();
     }
     public void init()
