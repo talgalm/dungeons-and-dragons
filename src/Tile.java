@@ -1,4 +1,4 @@
-public class Tile{
+public abstract class Tile{
     protected char character;
     protected Position position;
     protected Tile (char c , Position pos)
@@ -22,4 +22,6 @@ public class Tile{
     public char toChar(){
         return GetChar();
     }
+
+    public abstract void accept(Unit unit);
 }
