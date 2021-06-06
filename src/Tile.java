@@ -23,5 +23,5 @@ public abstract class Tile{
         return GetChar();
     }
 
-    public abstract void accept(Unit unit);
+    public abstract void visit(Tile tile);
 }
