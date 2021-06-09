@@ -52,12 +52,11 @@ public class Board {
     }
     public void PrintGameBoard()
     {
-        char [][] arr = new char[width][height]; //**because of 2 comments below, changed to char arr**
-        // **We can also do this like that but then we will need to override toString to return char
+        char [][] arr = new char[width][height];
         int counter = 0;
         for(int i = 0; i < width;i++)
         {
-            for (int j = 0;j < height;j++) //***did you the mean opposite?***
+            for (int j = 0;j < height;j++)
             {
                 Tile t = tiles.get(counter);
                 arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar(); //**you wrote t.GetChar, we changed because problem with trap visibility**
