@@ -6,16 +6,6 @@ public class Enemy extends Unit {
     }
 
     @Override
-    public void Interaction(Player player) {
-
-    }
-
-    @Override
-    public void Interaction(Enemy enemy) {
-
-    }
-
-    @Override
     public void visit(Tile tile) {
 
     }
@@ -23,6 +13,11 @@ public class Enemy extends Unit {
     @Override
     public void interaction(Tile tile) {
 
+    }
+
+    public Position Move(Position pos)
+    {
+       return  null;
     }
 }
 

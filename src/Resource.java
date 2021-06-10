@@ -8,7 +8,11 @@ public class Resource{
     }
     public int getResourcePool(){ return resourcePool;}
     public int getResourceAmount(){return resourceAmount;}
-    public void takeDamage(int Damage){
-        resourceAmount = resourceAmount-Damage;
+
+    public void setResourceAmount(int resourceAmount) {
+        this.resourceAmount = resourceAmount;
+    }
+    public void setResourcePool(int resourcePool) {
+        this.resourcePool = resourcePool;
     }
 }

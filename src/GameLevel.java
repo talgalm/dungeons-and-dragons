@@ -21,13 +21,22 @@ public class GameLevel {
             board.PrintGameBoard();
             Scanner scanner = new Scanner(System.in);
             char c = scanner.nextLine().charAt(0);
-            player.accept( board.GetTile(inputProvider.getAction(player.GetPosition(), c)));
+            Position playerMove = inputProvider.getAction(player.GetPosition(), c);
+            if (playerMove.getX() == -1)
+            {
+                player.Cast_Special_Ability(Enemies, Tick);
+            }
+            else {player.accept( board.GetTile(playerMove));}
             for (Enemy e : Enemies) {
-                e.turn();
+                Position enemyMove = e.Move(player.GetPosition());
+                if (enemyMove.getX() == -1)
+                {
+                    e.Combat(player);
+                }
+                e.accept(board.GetTile(enemyMove));
             }
             Tick++;
         }
     }
-
 
 }

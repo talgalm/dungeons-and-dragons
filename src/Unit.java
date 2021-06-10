@@ -1,5 +1,4 @@
 public abstract class Unit extends Tile{
-    protected MessageCallBack messageCallBack;
     private String name;
     private int attackPoints;
     private int defensePoints;
@@ -13,42 +12,32 @@ public abstract class Unit extends Tile{
         this.defensePoints = defence;
     }
 
-    public void moveLeft(){
-        moveCallBack.move(new Position(position.getX()-1, position.getY()));
+    public int getAttackPoints() {
+        return attackPoints;
     }
 
-    public void moveRight(){
-        moveCallBack.move(new Position(position.getX()+1, position.getY()));
+    public int getDefensePoints() {
+        return defensePoints;
+    }
+    
+    public int getResourcePool() {
+        return health.getResourcePool();
+    }
+    public int getResourceAmount() {
+        return health.getResourceAmount();
     }
 
-    public void moveUp(){
-        moveCallBack.move(new Position(position.getX(), position.getY()+1));
-    }
-
-    public void moveDown(){
-        moveCallBack.move(new Position(position.getX(), position.getY()-1));
-    }
-
-    public abstract void  turn();
-    public void Interaction(Empty empty){
-        Position emptyPosition = empty.GetPosition();
-        empty.SetPosition(GetPosition());
-        SetPosition(emptyPosition);
-    }
-
-    public void Interaction(Wall wall){}
-    public abstract void Interaction(Player player);
-    public abstract void Interaction(Enemy enemy);
-
-    public void checkInteract(Tile tile) {
-        tile.visit(this);
-    }
-    public Resource getHealth()
+    public void takeDamage(int damage)
     {
-        return health;
+        health.setResourceAmount(health.getResourceAmount()-damage);
     }
-    public void turn()
-    {
 
+    public void Combat(Unit unit)
+    {
+        MassageCallBack.send("description of the beginning of combat");
+        int damage = Math.max((getAttackPoints()- unit.getDefensePoints()),0);
+        unit.takeDamage(damage);
+        MassageCallBack.send("description of the end of combat");
     }
+
 }

@@ -9,4 +9,16 @@ public class Trap extends Enemy{
         this.invisibility_time=invisibility_time;
         this.visibility_time = visibility_time;
     }
+    public Position Move(Position pos)
+    {
+        visible = tick_count < visibility_time;
+        if (tick_count == (visibility_time + invisibility_time))
+        {
+            tick_count=0;
+        }
+        else tick_count++;
+        if (GetPosition().Range(pos)<2)
+            return new Position(-1,-1);
+        return  GetPosition();
+    }
 }
