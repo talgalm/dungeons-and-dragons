@@ -1,7 +1,5 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class Board {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
@@ -26,6 +24,10 @@ public class Board {
 
     public Player getThePlayer() {
         return ThePlayer;
+    }
+
+        public Tile GetTile(Position p){
+        return tiles.get((p.getX() * width) + p.getY());
     }
 
     public void buildTileList(String stringList, String CharMyPlayer)

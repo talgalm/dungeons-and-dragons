@@ -7,6 +7,7 @@ public class GameLevel {
     private Player player;
     private ArrayList<Enemy> Enemies = new ArrayList<Enemy>(); //****can be erased****
     private int Tick;
+    private InputProvider inputProvider;
     public GameLevel (Board b)
     {
         this.Tick = 0;
@@ -18,15 +19,9 @@ public class GameLevel {
     {
         while (!Enemies.isEmpty()) {
             board.PrintGameBoard();
-//            Position current_Pos = player.getPosition();
-            InputProvider inputProvider = new InputProvider() {
-                @Override
-                public Position getAction(Position current_Pos, char input) { //***shouldn't the first input be player.GetPosition()?*** (we added the line there)
-                    return null;
-                }
-            };
-            player.turn(MessageCallback messageCallback, PlayerDeathCallback deathCallback, inputProvider);
-
+            Scanner scanner = new Scanner(System.in);
+            char c = scanner.nextLine().charAt(0);
+            player.accept( board.GetTile(inputProvider.getAction(player.GetPosition(), c)));
             for (Enemy e : Enemies) {
                 e.turn();
             }

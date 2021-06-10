@@ -29,6 +29,7 @@ public abstract class Unit extends Tile{
         moveCallBack.move(new Position(position.getX(), position.getY()-1));
     }
 
+    public abstract void  turn();
     public void Interaction(Empty empty){
         Position emptyPosition = empty.GetPosition();
         empty.SetPosition(GetPosition());

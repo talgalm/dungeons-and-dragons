@@ -26,4 +26,5 @@ public abstract class Tile{
     public abstract void visit(Tile tile);
 
     public abstract void interaction(Tile tile);
+
 }
