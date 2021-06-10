@@ -25,7 +25,7 @@ public class GameLevel {
                     return null;
                 }
             };
-            player.turn(MessageCallback messageCallback, PlayerDeathCallback deathCallback, inputProvider);
+            player.turn(); //MessageCallback messageCallback, PlayerDeathCallback deathCallback, inputProvider
 
             for (Enemy e : Enemies) {
                 e.turn();
