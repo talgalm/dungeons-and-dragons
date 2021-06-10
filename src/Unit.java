@@ -47,4 +47,8 @@ public abstract class Unit extends Tile{
     {
         return health;
     }
+    public void turn()
+    {
+
+    }
 }
