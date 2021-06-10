@@ -1,10 +1,13 @@
-public class Player extends Unit{
+import java.util.ArrayList;
+
+public class Player extends Unit {
     private Ability ability;
     private InputProvider inputProvider;
     private MessageCallBack messageCallBack;
-    private int exprirence ;
+    private int exprirence;
     private int playerLevel;
-    private  final int POINTS = 50;
+    private final int POINTS = 50;
+}
 
     public Player(Position position,char tile, String name, int healthCapacity, int attack, int defence,Ability ability ) {
         super(position, tile, name, healthCapacity, attack, defence);
@@ -12,6 +15,7 @@ public class Player extends Unit{
         exprirence = 0;
         playerLevel = 1;
         }
+
     protected void onDeath(){
         messageCallBack.send("YOU LOST");
         deathCallBack.call();
@@ -53,8 +57,9 @@ public class Player extends Unit{
     }
     @Override
     public void Interaction(Empty empty) {
-    moveCallBack.move(this.GetPosition() , empty.GetPosition());
+        moveCallBack.move(this.GetPosition(), empty.GetPosition());
     }
+
     @Override
     public void interaction(Tile tile) {
     }
@@ -67,6 +72,11 @@ public class Player extends Unit{
     public void accept(Wall w) {
     }
     public void accept(Tile t) {
+
+    }
+    public void Cast_Special_Ability(ArrayList<Enemy> Enemies,int current_tick)
+    {
+        ability.cast(Enemies , GetPosition(),getHealth().getResourceAmount(),getDefensePoints(),current_tick);
     }
 
 }

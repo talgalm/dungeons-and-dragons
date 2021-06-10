@@ -40,11 +40,7 @@ public class Board {
                 currentIndexWidth = 0;
                 currentIndexHeight++;
             }
-            //*****we need to calculate position, as a field inside each unit.
-            //*****The player as well needs to have position when constructed
-            //***Therefore, we recommend to keep the chosen player as an int until this point of the code
-            //*****instead of passing the object Player as input and when constructed now
-            //*****it can be with the position. (using tilefactory)
+
             if (tile == '@') {
                 ThePlayer = (Player) (new TileFactory()).Create(CharMyPlayer, new Position(currentIndexWidth,currentIndexHeight));
                 tiles.add(ThePlayer);
@@ -62,8 +58,7 @@ public class Board {
             for (int j = 0;j < height;j++)
             {
                 Tile t = tiles.get(counter);
-                arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar(); //**you wrote t.GetChar, we changed because problem with trap visibility**
-                //***we will change the return value of trap in toChar considering the ticking.
+                arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar();
                 counter++;
             }
         }

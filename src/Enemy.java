@@ -30,5 +30,9 @@ public class Enemy extends Unit {
     public void accept(Wall w) {}
     public void accept(Tile t) {
     }
+    public Position Move(Position pos)
+    {
+       return  null;
+    }
 }
 

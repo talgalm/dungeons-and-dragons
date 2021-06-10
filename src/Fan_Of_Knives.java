@@ -15,7 +15,7 @@ public class Fan_Of_Knives extends Ability {
              Enemies) {
             if (e.GetPosition().Range(PlayerPos) < 2)
             {
-                e.getHealth().takeDamage(Damage); //(each enemy will try to defend itself).
+                e.takeDamage(Damage); //(each enemy will try to defend itself).
             }
         }
         return 0;

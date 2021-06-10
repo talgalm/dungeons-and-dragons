@@ -14,12 +14,6 @@ public abstract class Unit extends Tile{
         this.defensePoints = defence;
     }
 
-    public int getAttackPoints(){
-        return attackPoints;
-    }
-    public int getDefensePoints(){
-        return defensePoints;
-    }
     public void addAttackPoints( int playerlLevel){
         this.attackPoints = attackPoints + (4 * playerlLevel); }
     public void addDefensePoints(int playerLevel){ this.defensePoints = defensePoints + playerLevel;}
@@ -35,8 +29,35 @@ public abstract class Unit extends Tile{
     public void Interaction(Wall wall){}
     public abstract void Interaction(Player player);
     public abstract void Interaction(Enemy enemy);
-    public boolean isAlive(){
+    public boolean isAlive() {
         return getHealth().getResourceAmount() > 0;
+    }
+    public int getAttackPoints() {
+        return attackPoints;
+    }
+
+    public int getDefensePoints() {
+        return defensePoints;
+    }
+    
+    public int getResourcePool() {
+        return health.getResourcePool();
+    }
+    public int getResourceAmount() {
+        return health.getResourceAmount();
+    }
+
+    public void takeDamage(int damage)
+    {
+        health.setResourceAmount(health.getResourceAmount()-damage);
+    }
+
+    public void Combat(Unit unit)
+    {
+        MassageCallBack.send("description of the beginning of combat");
+        int damage = Math.max((getAttackPoints()- unit.getDefensePoints()),0);
+        unit.takeDamage(damage);
+        MassageCallBack.send("description of the end of combat");
     }
 
 }

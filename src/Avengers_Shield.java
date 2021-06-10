@@ -19,7 +19,7 @@ public class Avengers_Shield extends Ability{
                     EnemiesInRange.add(e);
             }
             int randomize_Enemy = (int)(Math.random()*EnemiesInRange.size());
-            EnemiesInRange.get(randomize_Enemy).getHealth().takeDamage(Damage);
+            EnemiesInRange.get(randomize_Enemy).takeDamage(Damage);
             remaining_cooldown = ability_cooldown;
             return currentDefense*10;
         }

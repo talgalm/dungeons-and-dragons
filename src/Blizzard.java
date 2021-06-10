@@ -32,7 +32,7 @@ public class Blizzard extends Ability {
                 while (EnemiesInRange.size() != 0)
                 {
                     int randomize_Enemy = (int)(Math.random()*EnemiesInRange.size());
-                    EnemiesInRange.get(randomize_Enemy).getHealth().takeDamage(spell_power); //(each enemy may try to defend itself).
+                    EnemiesInRange.get(randomize_Enemy).takeDamage(spell_power); //(each enemy may try to defend itself).
                 }
                 hits++;
             }
