@@ -23,8 +23,6 @@ public abstract class Tile{
         return GetChar();
     }
 
-    public abstract void visit(Tile tile);
-
     public abstract void interaction(Tile tile);
 
 }

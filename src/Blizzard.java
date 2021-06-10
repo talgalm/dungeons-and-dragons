@@ -29,7 +29,7 @@ public class Blizzard extends Ability {
                     if (e.GetPosition().Range(PlayerPos) < ability_range)
                         EnemiesInRange.add(e);
                 }
-                while (EnemiesInRange.size()!= 0)
+                while (EnemiesInRange.size() != 0)
                 {
                     int randomize_Enemy = (int)(Math.random()*EnemiesInRange.size());
                     EnemiesInRange.get(randomize_Enemy).getHealth().takeDamage(spell_power); //(each enemy may try to defend itself).
@@ -42,9 +42,9 @@ public class Blizzard extends Ability {
 
     @Override
     public int levelUp(int level) {
-        mana_pool = mana_pool + 25*level;
+        mana_pool = mana_pool + 25 * level;
         current_mana = Math.min(current_mana+mana_pool/4,mana_pool);
-        spell_power = spell_power+10*level;
+        spell_power = spell_power + 10 * level;
         return 0;
     }
 

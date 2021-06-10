@@ -1,4 +1,5 @@
 public abstract class Unit extends Tile{
+
     protected MessageCallBack messageCallBack;
     private String name;
     private int attackPoints;
@@ -13,24 +14,19 @@ public abstract class Unit extends Tile{
         this.defensePoints = defence;
     }
 
-    public void moveLeft(){
-        moveCallBack.move(new Position(position.getX()-1, position.getY()));
+    public int getAttackPoints(){
+        return attackPoints;
     }
-
-    public void moveRight(){
-        moveCallBack.move(new Position(position.getX()+1, position.getY()));
+    public int getDefensePoints(){
+        return defensePoints;
     }
+    public void addAttackPoints( int playerlLevel){
+        this.attackPoints = attackPoints + (4 * playerlLevel); }
+    public void addDefensePoints(int playerLevel){ this.defensePoints = defensePoints + playerLevel;}
+    public void SetAttackPoints(int newAttackPoints){ this.attackPoints = newAttackPoints; }
+    public Resource getHealth() { return health;}
 
-    public void moveUp(){
-        moveCallBack.move(new Position(position.getX(), position.getY()+1));
-    }
-
-    public void moveDown(){
-        moveCallBack.move(new Position(position.getX(), position.getY()-1));
-    }
-
-    public abstract void  turn();
-    public void Interaction(Empty empty){
+    public void Interaction(Empty empty) {
         Position emptyPosition = empty.GetPosition();
         empty.SetPosition(GetPosition());
         SetPosition(emptyPosition);
@@ -39,16 +35,8 @@ public abstract class Unit extends Tile{
     public void Interaction(Wall wall){}
     public abstract void Interaction(Player player);
     public abstract void Interaction(Enemy enemy);
+    public boolean isAlive(){
+        return getHealth().getResourceAmount() > 0;
+    }
 
-    public void checkInteract(Tile tile) {
-        tile.visit(this);
-    }
-    public Resource getHealth()
-    {
-        return health;
-    }
-    public void turn()
-    {
-
-    }
 }
