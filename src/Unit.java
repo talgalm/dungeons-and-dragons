@@ -5,8 +5,8 @@ public abstract class Unit extends Tile{
     private int defensePoints;
     private Resource health;
 
-    public Unit(char tile, String name, int healthCapacity, int attack, int defence, Position position){
-        super(tile, position);
+    public Unit(Position position,char tile, String name, int healthCapacity, int attack, int defence){
+        super(position,tile);
         this.name = name;
         this.health = new Resource(healthCapacity, healthCapacity);
         this.attackPoints = attack;
@@ -41,5 +41,9 @@ public abstract class Unit extends Tile{
 
     public void checkInteract(Tile tile) {
         tile.visit(this);
+    }
+    public Resource getHealth()
+    {
+        return health;
     }
 }

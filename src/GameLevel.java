@@ -26,16 +26,13 @@ public class GameLevel {
                 }
             };
             player.turn(MessageCallback messageCallback, PlayerDeathCallback deathCallback, inputProvider);
-            //***Why should the player get callBacks in each turn instead of constant fields in construction?****
-            //***plus, maybe, we're not sure, there's a problem with how you send the desired new location
-            //***shouldn't it be a copy constructor of the position? because it'll change inside GetAction.
+
             for (Enemy e : Enemies) {
                 e.turn();
             }
             Tick++;
         }
     }
-    //****you should put the ticks somewhere so units can know the amount(maybe in "turn" signature)***
-    //****more functions of death of enemies*****
+
 
 }

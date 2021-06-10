@@ -1,7 +1,7 @@
 public abstract class Tile{
     protected char character;
     protected Position position;
-    protected Tile (char c , Position pos)
+    protected Tile ( Position pos, char c )
     {
         character = c;
         position = pos;
@@ -24,4 +24,6 @@ public abstract class Tile{
     }
 
     public abstract void visit(Tile tile);
+
+    public abstract void interaction(Tile tile);
 }

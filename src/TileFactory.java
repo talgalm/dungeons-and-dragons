@@ -4,17 +4,17 @@ public class TileFactory {
         switch (input)
         {
             case "1":
-                return new Warrior(pos,'@',"Jon Snow", 300, 30, 4, 3); //****shouldn't the value be not the name but '@'?****
+                return new Warrior(pos,'@',"Jon Snow", 300, 30,4,new Avengers_Shield((3)));
             case "2":
-                return new Warrior(pos,'@',"The Hound", 400, 20, 6, 5);
+                return new Warrior(pos,'@',"The Hound", 400, 20, 6, new Avengers_Shield((5)));
             case "3":
-                return new Mage(pos,'@',"Melisandre", 100, 5, 1, 300, 30, 15, 5, 6);
+                return new Mage(pos,'@',"Melisandre", 100, 5, 1, new Blizzard(300, 30, 15, 5, 6));
             case "4":
-                return new Mage(pos,'@',"Thoros of Myr", 250, 25, 4, 150, 20, 20, 3, 4);
+                return new Mage(pos,'@',"Thoros of Myr", 250, 25, 4, new Blizzard(150, 20, 20, 3, 4));
             case "5":
-                return new Rogue(pos,'@',"Arya Stark", 150, 40, 2, 20);
+                return new Rogue(pos,'@',"Arya Stark", 150, 40, 2, new Fan_Of_Knives(20));
             case "6":
-                return new Rogue(pos,'@',"Bronn", 250, 35, 3, 50);
+                return new Rogue(pos,'@',"Bronn", 250, 35, 3, new Fan_Of_Knives(50));
             case "s":
                 return new Monster(pos,'s', "Lannister Solider", 80, 8, 3,25, 3);
             case "k":

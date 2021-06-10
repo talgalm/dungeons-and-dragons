@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Board {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
@@ -65,6 +66,8 @@ public class Board {
             }
         }
         System.out.println(Arrays.deepToString(arr));
+
+        //String result = tiles.stream().sorted().map(t -> t.toSring() + t.getPosition().getX()==width ? "/n" : "").collect(Collectors.joining(""));
     }
 
 }
