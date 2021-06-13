@@ -21,22 +21,22 @@ public class Monster extends Enemy{
 
             int dx = (GetPosition().getX()-pos.getX());
             int dy = (GetPosition().getY()-pos.getY());
-            if (dx > dy)
+            if (Math.abs(dx) > Math.abs(dy))
             {
                 if (dx > 0)
                 {
-                    movement = 1;
+                    movement = 0; //left
                 }
-                else  movement = 2;
+                else  movement = 1;//right
 
             }
             else
             {
                 if (dy > 0)
                 {
-                    movement = 3;
+                    movement = 2; //up
                 }
-                else  movement = 4;
+                else  movement = 3;//down
             }
 
         }
@@ -44,10 +44,10 @@ public class Monster extends Enemy{
             movement = (int)(Math.random()*3);
         }
         return switch (movement) {
-            case 0 -> new Position(GetPosition().getX() - 1, GetPosition().getY());
-            case 1 -> new Position(GetPosition().getX() + 1, GetPosition().getY());
+            case 0 -> new Position(GetPosition().getX() -1, GetPosition().getY());
+            case 1 -> new Position(GetPosition().getX()+1 , GetPosition().getY());
             case 2 -> new Position(GetPosition().getX(), GetPosition().getY() + 1);
-            case 3 -> new Position(GetPosition().getX(), GetPosition().getY() - 1);
+            case 3 -> new Position(GetPosition().getX(), GetPosition().getY() - 1 );
             default -> null;
         };
     }

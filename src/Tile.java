@@ -23,6 +23,16 @@ public abstract class Tile{
         return GetChar();
     }
 
-    public abstract void interaction(Tile tile);
+    public abstract void Interaction(Tile tile);
+    public abstract void Interaction(Empty empty);
+    public abstract void Interaction(Wall wall);
+    public abstract void Interaction(Enemy enemy);
 
+
+    public void setCharacter(char character) {
+        this.character = character;
+    }
+
+
+    public abstract void accept(Tile tile);
 }

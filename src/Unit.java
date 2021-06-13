@@ -29,6 +29,8 @@ public abstract class Unit extends Tile{
     public void Interaction(Wall wall){}
     public abstract void Interaction(Player player);
     public abstract void Interaction(Enemy enemy);
+
+
     public boolean isAlive() {
         return getHealth().getResourceAmount() > 0;
     }
@@ -54,10 +56,10 @@ public abstract class Unit extends Tile{
 
     public void Combat(Unit unit)
     {
-        MassageCallBack.send("description of the beginning of combat");
+        messageCallBack.send("description of the beginning of combat");
         int damage = Math.max((getAttackPoints()- unit.getDefensePoints()),0);
         unit.takeDamage(damage);
-        MassageCallBack.send("description of the end of combat");
+        messageCallBack.send("description of the end of combat");
     }
 
 }

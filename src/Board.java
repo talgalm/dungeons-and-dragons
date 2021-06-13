@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Board {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
@@ -26,45 +27,56 @@ public class Board {
         return ThePlayer;
     }
 
-        public Tile GetTile(Position p){
-        return tiles.get((p.getX() * width) + p.getY());
+    public Tile GetTile(Position p){
+        for (Tile t:
+             tiles) {
+            if (t.GetPosition().getX() == p.getX() && t.GetPosition().getY() == p.getY())
+                return t;
+        }
+        return null;
     }
 
     public void buildTileList(String stringList, String CharMyPlayer)
     {
-        int currentIndexWidth = 0, currentIndexHeight = 0;
+        int currentIndexWidth = 0, currentIndexHeight = height-1;
         for (char tile : stringList.toCharArray())
         {
-            String TileString =String.valueOf(tile);
-            if (currentIndexWidth >= width) {
+            if (currentIndexWidth == width)
+            {
                 currentIndexWidth = 0;
-                currentIndexHeight++;
+                currentIndexHeight--;
             }
+            String TileString =String.valueOf(tile);
 
             if (tile == '@') {
                 ThePlayer = (Player) (new TileFactory()).Create(CharMyPlayer, new Position(currentIndexWidth,currentIndexHeight));
                 tiles.add(ThePlayer);
             }
-            else tiles.add((new TileFactory()).Create(TileString,new Position(currentIndexWidth,currentIndexHeight)));
+            else {
+                Tile notPlayer = (new TileFactory()).Create(TileString,new Position(currentIndexWidth,currentIndexHeight));
+                tiles.add(notPlayer);
+                if (tile != '.' && tile != '#')
+                    Enemies.add((Enemy)notPlayer);
+            }
             currentIndexWidth++;
         }
     }
     public void PrintGameBoard()
     {
-        char [][] arr = new char[width][height];
-        int counter = 0;
-        for(int i = 0; i < width;i++)
-        {
-            for (int j = 0;j < height;j++)
-            {
-                Tile t = tiles.get(counter);
-                arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar();
-                counter++;
-            }
+        char [][] arr = new char[5][4];
+        for (Tile t:
+             tiles) {
+            arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar();
         }
-        System.out.println(Arrays.deepToString(arr));
 
-        //String result = tiles.stream().sorted().map(t -> t.toSring() + t.getPosition().getX()==width ? "/n" : "").collect(Collectors.joining(""));
+        for (int i=height-1;i>=0;i--)
+        {
+            for(int j=0; j<= width-1;j++)
+            {
+                System.out.print(arr[j][i]);
+            }
+            System.out.println();
+        }
     }
 
 }

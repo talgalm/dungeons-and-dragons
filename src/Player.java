@@ -2,12 +2,13 @@ import java.util.ArrayList;
 
 public class Player extends Unit {
     private Ability ability;
-    private InputProvider inputProvider;
     private MessageCallBack messageCallBack;
+    private DeathCallBack deathCallBack;
+    private MoveCallBack moveCallBack;
     private int exprirence;
     private int playerLevel;
     private final int POINTS = 50;
-}
+
 
     public Player(Position position,char tile, String name, int healthCapacity, int attack, int defence,Ability ability ) {
         super(position, tile, name, healthCapacity, attack, defence);
@@ -49,30 +50,42 @@ public class Player extends Unit {
     }
 
     public void Interaction(Enemy enemy) {
-        this.combat(enemy);
+        this.Combat(enemy);
         if(!enemy.isAlive()) {
-            swapPosition(enemy);
             onKill(enemy);
+            moveCallBack.move(this.GetPosition(), enemy.GetPosition());
         }
     }
-    @Override
+
+
     public void Interaction(Empty empty) {
         moveCallBack.move(this.GetPosition(), empty.GetPosition());
     }
 
     @Override
-    public void interaction(Tile tile) {
+    public void Interaction(Player player) {
+
     }
+
+
+    @Override
+    public void Interaction(Tile tile) {
+        int x=-1;
+    }
+
+    @Override
+    public void accept(Tile tile) {
+        this.Interaction(tile);
+    }
+
+
     public void accept(Empty e) {
-        this.interaction(e);
+        this.Interaction(e);
     }
     public void accept(Enemy e){
-        this.interaction(e);
+        this.Interaction(e);
     }
     public void accept(Wall w) {
-    }
-    public void accept(Tile t) {
-
     }
     public void Cast_Special_Ability(ArrayList<Enemy> Enemies,int current_tick)
     {

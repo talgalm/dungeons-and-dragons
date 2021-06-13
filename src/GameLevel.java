@@ -7,7 +7,6 @@ public class GameLevel {
     private Player player;
     private ArrayList<Enemy> Enemies = new ArrayList<Enemy>(); //****can be erased****
     private int Tick;
-    private InputProvider inputProvider;
     public GameLevel (Board b)
     {
         this.Tick = 0;
@@ -21,19 +20,24 @@ public class GameLevel {
             board.PrintGameBoard();
             Scanner scanner = new Scanner(System.in);
             char c = scanner.nextLine().charAt(0);
+            InputProviderr inputProvider =  new InputProviderr();
             Position playerMove = inputProvider.getAction(player.GetPosition(), c);
             if (playerMove.getX() == -1)
             {
                 player.Cast_Special_Ability(Enemies, Tick);
             }
-            else {player.accept( board.GetTile(playerMove));}
+            else {
+                Tile t = board.GetTile(playerMove);
+                t.accept (player);
+            }
             for (Enemy e : Enemies) {
                 Position enemyMove = e.Move(player.GetPosition());
                 if (enemyMove.getX() == -1)
                 {
                     e.Combat(player);
                 }
-                e.accept(board.GetTile(enemyMove));
+                Tile t = board.GetTile(enemyMove);
+                t.accept(e);
             }
             Tick++;
         }

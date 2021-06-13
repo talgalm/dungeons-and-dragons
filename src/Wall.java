@@ -6,15 +6,30 @@ public class Wall extends Tile{
     }
 
     @Override
-    public void visit(Tile tile) {
+    public void Interaction(Tile tile) {
 
     }
+
     @Override
-    public void interaction(Tile tile)
-    {
-        //do nothing
+    public void Interaction(Empty empty) {
+
     }
 
+    @Override
+    public void Interaction(Wall wall) {
+
+    }
+
+    @Override
+    public void Interaction(Enemy enemy) {
+
+    }
+
+
+    @Override
+    public void accept(Tile tile) {
+
+    }
 
 
 }
