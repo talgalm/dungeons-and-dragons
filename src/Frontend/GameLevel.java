@@ -17,12 +17,14 @@ public class GameLevel {
         this.player = b.getThePlayer();
         this.Enemies = b.getEnemies();
         this.bribedEnemies = new ArrayList<>();
+        messageCallBack = System.out::println;
     }
     public void init()
     {
         char[] inputs = new char[] {'q', 'w', 'e', 'a', 's', 'd'};
         while (!Enemies.isEmpty()) { // or if dead
             board.PrintGameBoard();
+            messageCallBack.Send(player.getDescription());
             char c = getInput(inputs);
             Position playerWishedPosition = null;
             while(playerWishedPosition == null){

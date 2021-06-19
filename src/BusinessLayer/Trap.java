@@ -37,4 +37,12 @@ public class Trap extends Enemy{
 
     @Override
     public void AcceptBribe() { }
+
+    @Override
+    public String getDescription() {
+        return GetName() + " Health:" +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
+                + " Attack:" +GetAttackPoints()
+                + " Defense:" +GetDefensePoints()
+                + " Experience Value:" + GetExperience();
+    }
 }

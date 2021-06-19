@@ -53,5 +53,6 @@ public abstract class Enemy extends Unit {
     public abstract Position MoveAsBribed(ArrayList<Enemy> enemies);
 
     public abstract void AcceptBribe();
+    public abstract String getDescription();
 }
 

@@ -55,4 +55,13 @@ public class Mage extends Player{
     public String getAbility() {
         return "Blizzard: mana pool " +mana.GetResourceCurrent()+"/"+mana.GetResourceMax() + " mana cost" + manaCost + "  spell power" + spellPower +"  " + "  hits count" + hitCount + "   " + abilityRange ;
     }
+
+    @Override
+    public String getDescription() {
+        return GetName() + " Health:" +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
+                + " Attack:" +GetAttackPoints()
+                + " Defense:" +GetDefensePoints()
+                + " Level:" +playerLevel
+                + " Experience:" + getExperience() + getAbility();
+    }
 }

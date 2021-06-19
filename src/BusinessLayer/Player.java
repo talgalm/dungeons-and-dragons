@@ -32,6 +32,8 @@ public abstract class Player extends Unit {
         LevelUpAttackPoints(playerLevel);
         LevelUpDefensePoints(playerLevel);
         toLevelUpExperience = playerLevel*POINTS;
+        messageCallBack = System.out::println;
+        messageCallBack.Send(GetName() +" reached level"  +getPlayerLevel() +": +" +10*playerLevel + " +"+(4 * playerLevel) + " +"+playerLevel );
     }
 
 
@@ -44,8 +46,10 @@ public abstract class Player extends Unit {
 
     protected void onDeath(){
         deathCallBack.Call();
+        messageCallBack.Send("You died");
     }
     public void onKill(Enemy e){
+        messageCallBack.Send(e.name + " died." + GetName() + " gained " + e.GetExperience() + " experience" );
         AddExperience(e.GetExperience());
         SwapPositions(e);
         e.onEnemyDeath();
@@ -72,7 +76,11 @@ public abstract class Player extends Unit {
     }
 
     public abstract String getAbility();
+    public abstract String getDescription();
 
+    public int getExperience() {
+        return experience;
+    }
 }
 
 
