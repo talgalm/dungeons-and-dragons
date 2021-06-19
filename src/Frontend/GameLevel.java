@@ -20,7 +20,10 @@ public class GameLevel {
         while (!Enemies.isEmpty()) { // or if dead
             board.PrintGameBoard();
             Scanner scanner = new Scanner(System.in);
-            char c = scanner.nextLine().charAt(0);
+            char c = 'x';
+            String received = scanner.nextLine();
+            while(received != null)
+                c = received.charAt(0);
             Position playerWishedPosition = null;
             while(playerWishedPosition == null){
                 playerWishedPosition = player.MoveTo(c);
