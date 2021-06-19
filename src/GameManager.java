@@ -96,12 +96,12 @@ public class GameManager {
             " -------------------------------------------------------------------------------------- " +"\n" +
             "|                                  New Character!! 'Briber'                            |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|             Name            |  Health  |  Attack  |  Defense  | cash per kill  |      " +"\n" +
+            "|         Name        |  Health  |  Attack  |  Defense  |     cash per kill      |      " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|0.      Tyrion Lannister     |    200   |    15    |     4     |     35         |      " +"\n" +
+            "|0.  Tyrion Lannister |    200   |    15    |     4     |  35% of enemy's health |      " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
             "|         Tyrion might be weak, but every time he kills an enemy he gets cash.         |" +"\n" +
-            "|    35% of enemy's health as cash. With this cash, he can BRIBE a Lannister guard     |" +"\n" +
+            " A percentage of enemy's health as cash. With this cash, he can BRIBE a Lannister guard|" +"\n" +
             "|       or knight or Queen's Guard (marked as 's' and 'k' and 'q' respectively).       |" +"\n" +
             "|Bribe will cost as much as the health bar of the bribed and will last the whole level |" +"\n" +
             "|Bribe action will succeed only if Briber has enough cash and only 1 bribeable soldier |" +"\n" +
