@@ -1,8 +1,9 @@
-import java.awt.*;
+package Frontend;
+import BusinessLayer.*;
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
-import java.util.Scanner;
+
 
 public class GameManager {
 
@@ -94,7 +95,7 @@ public class GameManager {
         System.out.println( " -------------------------------------------------------------------------------------- " + "\n" +
             "|                                 Please choose a character:                           |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|                                  New Character!! 'Briber'                            |" +"\n" +
+            "|                                  New Character!! 'BusinessLayer.Briber'                            |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
             "|         Name        |  Health  |  Attack  |  Defense  |     cash per kill      |      " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
@@ -104,9 +105,9 @@ public class GameManager {
             " A percentage of enemy's health as cash. With this cash, he can BRIBE a Lannister guard|" +"\n" +
             "|       or knight or Queen's Guard (marked as 's' and 'k' and 'q' respectively).       |" +"\n" +
             "|Bribe will cost as much as the health bar of the bribed and will last the whole level |" +"\n" +
-            "|Bribe action will succeed only if Briber has enough cash and only 1 bribeable soldier |" +"\n" +
+            "|Bribe action will succeed only if BusinessLayer.Briber has enough cash and only 1 bribeable soldier |" +"\n" +
             "|                      around his close 'circle' (square around)                       |" +"\n" +
-            "|Bribed soldiers won't come after the Briber but will come after other Enemies to fight|" +"\n" +
+            "|Bribed soldiers won't come after the BusinessLayer.Briber but will come after other Enemies to fight|" +"\n" +
             "|                     (No need to kill bribed enemy, your choice)                      |" +"\n" +
             "|     Enemies will try to attack bribed enemies as well, if the player isn't near      |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +

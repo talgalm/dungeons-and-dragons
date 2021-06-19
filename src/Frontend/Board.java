@@ -1,3 +1,6 @@
+package Frontend;
+import BusinessLayer.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,7 +86,7 @@ public class Board {
     }
 
     private void playerDead(){
-        ThePlayer.character = 'X';
+        ThePlayer.SetCharacter('X');
         System.out.println("YOU LOST");
         System.exit(0);
     }

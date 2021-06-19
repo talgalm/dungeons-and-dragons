@@ -3,17 +3,17 @@
 //import java.util.stream.Collectors;
 //
 //public class main {
-//    private static TileFactory tileFactory = new TileFactory();
+//    private static BusinessLayer.TileFactory tileFactory = new BusinessLayer.TileFactory();
 //    public static void main(String[] args){
-////        Tile tile = tileFactory.Create(" ",null);
+////        BusinessLayer.Tile tile = tileFactory.Create(" ",null);
 ////        System.out.println(tile);
 //        // Creating a list of integers
-//        Position p1 = new Position(0,1);
-//        Position p2 = new Position(1,3);
-//        Position p3 = new Position(1,1);
-//        Position p4 = new Position(2,0);
-//        Position p5 = new Position(0,3);
-//        List<Position> list = Arrays.asList(p1, p2, p3, p4, p5);
+//        BusinessLayer.Position p1 = new BusinessLayer.Position(0,1);
+//        BusinessLayer.Position p2 = new BusinessLayer.Position(1,3);
+//        BusinessLayer.Position p3 = new BusinessLayer.Position(1,1);
+//        BusinessLayer.Position p4 = new BusinessLayer.Position(2,0);
+//        BusinessLayer.Position p5 = new BusinessLayer.Position(0,3);
+//        List<BusinessLayer.Position> list = Arrays.asList(p1, p2, p3, p4, p5);
 ////        List<Pair(Integer, Integer)> list = Arrays.asList((0,0),(3,0),(1,3),(0,1),(0,2));
 ////        List<(Integer, Integer)> list = Arrays.asList((0,0),(3,0),(1,3),(0,1),(0,2));
 ////        List<{Integer, Integer}> list = Arrays.asList((0,0),(3,0),(1,3),(0,1),(0,2));

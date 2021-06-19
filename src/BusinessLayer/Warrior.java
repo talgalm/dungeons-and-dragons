@@ -1,3 +1,5 @@
+package BusinessLayer;
+
 import java.util.ArrayList;
 
 public class Warrior extends Player{

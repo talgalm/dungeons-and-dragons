@@ -1,3 +1,5 @@
+package BusinessLayer;
+
 public class Empty extends Tile {
 
     public Empty(char c) {

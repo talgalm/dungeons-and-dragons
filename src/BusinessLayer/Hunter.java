@@ -1,8 +1,8 @@
-import java.lang.reflect.Array;
+package BusinessLayer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Hunter extends Player{
     private Resource arrows;

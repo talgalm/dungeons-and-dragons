@@ -1,3 +1,5 @@
+package BusinessLayer;
+
 public class Resource{
     private int resourceMax;
     private int resourceCurrent;

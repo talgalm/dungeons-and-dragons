@@ -1,3 +1,5 @@
+package BusinessLayer;
+
 public class TileFactory {
     public Player CreatePlayer(String input) {
         switch (input) {
@@ -38,11 +40,11 @@ public class TileFactory {
             case 'w':
                 return new Monster('w', "White Walker", 2000, 150, 50, 1000, 6);
             case 'B':
-                return new Trap('B', "Bonus Trap", 1, 1, 1, 250, 1, 10);
+                return new Trap('B', "Bonus BusinessLayer.Trap", 1, 1, 1, 250, 1, 10);
             case 'Q':
-                return new Trap('Q', "Queen's Trap", 250, 50, 10, 100, 3, 10);
+                return new Trap('Q', "Queen's BusinessLayer.Trap", 250, 50, 10, 100, 3, 10);
             case 'D':
-                return new Trap('D', "Death Trap", 500, 100, 20, 250, 1, 10);
+                return new Trap('D', "Death BusinessLayer.Trap", 500, 100, 20, 250, 1, 10);
         }
         return null;
     }

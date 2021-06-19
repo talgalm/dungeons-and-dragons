@@ -1,5 +1,5 @@
 package Callbacks;
 
 // interface MoveCallBack {
-//    public void move(Position oldPos , Position newPos);
+//    public void move(BusinessLayer.Position oldPos , BusinessLayer.Position newPos);
 //}

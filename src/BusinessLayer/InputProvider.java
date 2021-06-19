@@ -1,3 +1,5 @@
+package BusinessLayer;
+
 public class InputProvider {
     public InputProvider() { }
 

@@ -1,3 +1,5 @@
+package BusinessLayer;
+
 public abstract class Tile implements Comparable<Tile>{
     protected char character;
     protected Position position;
