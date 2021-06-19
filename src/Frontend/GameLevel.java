@@ -17,13 +17,10 @@ public class GameLevel {
     }
     public void init()
     {
+        char[] inputs = new char[] {'q', 'w', 'e', 'a', 's', 'd'};
         while (!Enemies.isEmpty()) { // or if dead
             board.PrintGameBoard();
-            Scanner scanner = new Scanner(System.in);
-            char c = 'x';
-            String received = scanner.nextLine();
-            while(received != null)
-                c = received.charAt(0);
+            char c = getInput(inputs);
             Position playerWishedPosition = null;
             while(playerWishedPosition == null){
                 playerWishedPosition = player.MoveTo(c);
@@ -58,5 +55,28 @@ public class GameLevel {
             //end of extra code
             board.TickAll();
         }
+    }
+
+    private char getInput(char[] inputs) {
+        Scanner scanner = new Scanner(System.in);
+        Character input = null;
+        while (input == null) {
+            try {
+                String received = scanner.nextLine();
+                if(received.length() == 1)
+                    input = received.charAt(0);
+                else
+                    input = 'x';
+                boolean legit = false;
+                for (char c : inputs)
+                    if (input == c)
+                        legit = true;
+                if (!legit) {
+                    System.out.println("wrong input, please choose a valid key");
+                    input = null;
+                }
+            } catch (StringIndexOutOfBoundsException e) { input = null;}
+        }
+        return input;
     }
 }

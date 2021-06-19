@@ -39,6 +39,12 @@ public class TileFactory {
                 return new Monster('g', "Giant-Wright", 1500, 100, 40, 500, 5);
             case 'w':
                 return new Monster('w', "White Walker", 2000, 150, 50, 1000, 6);
+            case 'M':
+                return new Monster('M', "The Mountain", 1000, 60, 25, 500, 6);
+            case 'C':
+                return new Monster('C', "Queen Cersei", 100, 10, 10, 1000, 1);
+            case 'K':
+                return new Monster('K', "Night’s King", 5000, 300, 150, 5000, 8);
             case 'B':
                 return new Trap('B', "Bonus BusinessLayer.Trap", 1, 1, 1, 250, 1, 10);
             case 'Q':
