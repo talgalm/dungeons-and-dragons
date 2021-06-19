@@ -48,11 +48,11 @@ public abstract class Unit extends Tile{
 
     public void Combat(Unit unit)
     {
-        //messageCallBack.Send("description of the beginning of combat");
+        messageCallBack.Send(this.GetName() + " engaged in combat with " + unit.GetName());
         messageCallBack.Send(String.format("%s rolled %d attack", name, 2));
         int damage = Math.max((GetRandomAttackPoints()- unit.GetRandomDefensePoints()),0);
         unit.TakeDamage(damage);
-        //messageCallBack.Send("description of the end of combat");
+        messageCallBack.Send(this.GetName() + " dealt "  +damage+ " to " + unit.GetName());
     }
 
     public void accept(Empty empty) {
@@ -66,4 +66,8 @@ public abstract class Unit extends Tile{
     public void accept(Wall wall){ }
     public abstract void accept(Player player);
     public abstract void accept(Enemy enemy);
+
+    public Resource getHealth() {
+        return health;
+    }
 }

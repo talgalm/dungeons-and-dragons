@@ -67,6 +67,12 @@ public abstract class Player extends Unit {
     @Override
     public void VisitedBy(Unit unit) { unit.accept(this); }
 
+    public int getPlayerLevel() {
+        return playerLevel;
+    }
+
+    public abstract String getAbility();
+
 }
 
 

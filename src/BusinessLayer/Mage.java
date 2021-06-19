@@ -51,4 +51,8 @@ public class Mage extends Player{
     public void TickUp() {
         mana.AddToResourceCurrent(playerLevel);
     }
+    @Override
+    public String getAbility() {
+        return "Blizzard: mana pool " +mana.GetResourceCurrent()+"/"+mana.GetResourceMax() + " mana cost" + manaCost + "  spell power" + spellPower +"  " + "  hits count" + hitCount + "   " + abilityRange ;
+    }
 }

@@ -1,5 +1,7 @@
 package Frontend;
 import BusinessLayer.*;
+import Callbacks.MessageCallBack;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +10,7 @@ public class GameLevel {
     private Player player;
     private ArrayList<Enemy> Enemies;
     private ArrayList<Enemy> bribedEnemies;
+    protected MessageCallBack messageCallBack;
     public GameLevel (Board b)
     {
         this.board = b;
@@ -21,6 +24,13 @@ public class GameLevel {
             board.PrintGameBoard();
             Scanner scanner = new Scanner(System.in);
             char c = 'x';
+            messageCallBack.Send(player.GetName() + "        Health:"+player.getHealth().GetResourceCurrent()+"/"+player.getHealth().GetResourceMax()
+                    + "        Attack:" + player.GetAttackPoints()
+                    + "        Defense:" + player.GetDefensePoints()
+                    + "        Level:" + player.getPlayerLevel()
+                    + "        Experience:" + player.GetAttackPoints()
+                    + "       "+player.getAbility()
+            );
             String received = scanner.nextLine();
             while(received != null)
                 c = received.charAt(0);

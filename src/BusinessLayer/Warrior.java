@@ -31,6 +31,11 @@ public class Warrior extends Player{
         return null;
     }
 
+    @Override
+    public String getAbility() {
+        return "Avenger’s Shield:  cooldown "+cooldown.GetResourceCurrent()+"/"+cooldown.GetResourceMax();
+    }
+
     private void CooldownToMax(){ cooldown.SetResourceCurrent(cooldown.GetResourceMax()); }
 
     @Override

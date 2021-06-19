@@ -33,6 +33,11 @@ public class Rogue extends Player{
     }
 
     @Override
+    public String getAbility() {
+        return "Fan of Knives:  cost" + energy.GetResourceCurrent()+"/"+energy.GetResourceMax() +" ability cost" +abilityCost ;
+    }
+
+    @Override
     public void TickUp() {
         energy.AddToResourceCurrent(10);
     }
