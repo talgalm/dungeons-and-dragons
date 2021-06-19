@@ -37,6 +37,11 @@ public class Hunter extends Player{
         return null;
     }
 
+    @Override
+    public String getAbility() {
+        return "Shoot";
+    }
+
     private Enemy findClosest(List<Enemy> enemies) {
             Double minRange = null;
             Enemy closestEnemy = null;

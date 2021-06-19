@@ -36,6 +36,11 @@ public class Briber extends Player{
     }
 
     @Override
+    public String getAbility() {
+        return "Bribe";
+    }
+
+    @Override
     public void earnCash(int healthPoints) {
         cash.AddToResourceCurrent((healthPoints * cashPercentage)/100);
     }
