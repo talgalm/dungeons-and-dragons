@@ -1,3 +1,6 @@
+import Callbacks.DeathCallBack;
+import Callbacks.MessageCallBack;
+
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
@@ -9,11 +12,13 @@ public abstract class Player extends Unit {
 
 
     public Player(char tile, String name, int healthCapacity, int attack, int defence) {
-        super(null, tile, name, healthCapacity, attack, defence);
+        super(tile, name, healthCapacity, attack, defence);
         experience = 0;
         playerLevel = 1;
         toLevelUpExperience = playerLevel*POINTS;
     }
+
+
 
     public void LevelUpHealthPoints(int playerLevel) {
         health.AddToResourceMax(10*playerLevel);
@@ -40,13 +45,12 @@ public abstract class Player extends Unit {
     }
 
     protected void onDeath(){
-        messageCallBack.Send("YOU LOST");
         deathCallBack.Call();
     }
     public void onKill(Enemy e){
         AddExperience(e.GetExperience());
-        Empty empty = e.onEnemyDeath(); //it will be
-        accept(empty);
+        SwapPositions(e);
+        e.onEnemyDeath();
     }
 
     public void accept(Player player) { }

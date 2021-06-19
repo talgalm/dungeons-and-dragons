@@ -1,7 +1,7 @@
 public class Empty extends Tile {
 
-    public Empty(Position pos, char c) {
-        super(pos, c);
+    public Empty(char c) {
+        super(c);
     }
 
     @Override

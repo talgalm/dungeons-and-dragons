@@ -7,20 +7,27 @@ public abstract class Unit extends Tile{
 
     protected DeathCallBack deathCallBack;
     protected MessageCallBack messageCallBack;
-    private String name;
+    protected String name;
     protected int attackPoints;
     protected int defensePoints;
     protected Resource health;
     private InputProvider inputProvider = new InputProvider();
     private Random random = new Random();
 
-    public Unit(Position position,char tile, String name, int healthCapacity, int attack, int defence){
-        super(position,tile);
+    public Unit(char tile, String name, int healthCapacity, int attack, int defence){
+        super(tile);
         this.name = name;
         this.health = new Resource(healthCapacity, healthCapacity);
         this.attackPoints = attack;
         this.defensePoints = defence;
     }
+
+    public void init(Position pos, DeathCallBack deathCallBack, MessageCallBack messageCallBack){
+        this.deathCallBack = deathCallBack;
+        this.messageCallBack = messageCallBack;
+        super.init(pos);
+    }
+
     public String GetName(){return name;}
     public int GetAttackPoints() {
         return attackPoints;
@@ -39,16 +46,20 @@ public abstract class Unit extends Tile{
 
     public void Combat(Unit unit)
     {
-        messageCallBack.Send("description of the beginning of combat");
+        //messageCallBack.Send("description of the beginning of combat");
+        messageCallBack.Send(String.format("%s rolled %d attack", name, 2));
         int damage = Math.max((GetRandomAttackPoints()- unit.GetRandomDefensePoints()),0);
         unit.TakeDamage(damage);
-        messageCallBack.Send("description of the end of combat");
+        //messageCallBack.Send("description of the end of combat");
     }
 
     public void accept(Empty empty) {
-        Position emptyPosition = empty.GetPosition();
-        empty.SetPosition(GetPosition());
-        SetPosition(emptyPosition);
+        SwapPositions(empty);
+    }
+    protected void SwapPositions(Tile t){
+        Position tilePosition = t.GetPosition();
+        t.SetPosition(GetPosition());
+        SetPosition(tilePosition);
     }
     public void accept(Wall wall){ }
     public abstract void accept(Player player);

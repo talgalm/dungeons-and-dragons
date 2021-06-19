@@ -26,7 +26,8 @@ public class GameManager {
                 gameLevel.init();
             }
         }
-        System.out.println("YOU WIN !!!!!!!!!!!!!!!!!!!!");
+        if(winner)
+            System.out.println("YOU WIN !!!!!!!!!!!!!!!!!!!!");
     }
 
 

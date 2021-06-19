@@ -1,12 +1,16 @@
-public abstract class Tile{
+public abstract class Tile implements Comparable<Tile>{
     protected char character;
     protected Position position;
 
-    protected Tile ( Position pos, char c )
+    protected Tile (char c)
     {
         character = c;
+    }
+
+    public void init(Position pos){
         position = pos;
     }
+
     public char GetChar()
     {
         return character;
@@ -26,4 +30,8 @@ public abstract class Tile{
 
     public abstract void TickUp();
     public abstract void VisitedBy(Unit unit);
+
+    public int compareTo(Tile t){
+        return GetPosition().compareTo(t.GetPosition());
+    }
 }

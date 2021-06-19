@@ -1,3 +1,6 @@
+import Callbacks.DeathCallBack;
+import Callbacks.MessageCallBack;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -6,10 +9,11 @@ public class Monster extends Enemy {
 
     private int visionRange;
 
-    public Monster(Position position, char tile, String name, int healthCapacity, int attack, int defence, int experience_value, int vision_range) {
-        super(position, tile, name, healthCapacity, attack, defence, experience_value);
+    public Monster(char tile, String name, int healthCapacity, int attack, int defence, int experience_value, int vision_range) {
+        super(tile, name, healthCapacity, attack, defence, experience_value);
         this.visionRange = vision_range;
     }
+
 
     public Position Move(Position pos, List<Enemy> bribedEnemies) {
         double distanceFromPlayer = position.Range(pos);
@@ -61,11 +65,10 @@ public class Monster extends Enemy {
 
     public void AcceptBribe(){
         isBribed = true;
+        character = 'H';
+        name = "bribed " + name;
     }
 
     @Override
     public void TickUp() { }
-
-    @Override
-    public void VisitedBy(Unit unit) { }
 }

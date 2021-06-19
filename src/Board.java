@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Board {
     private ArrayList<Tile> tiles = new ArrayList<>();
@@ -24,7 +26,8 @@ public class Board {
     }
 
     public Tile GetTile(Position p){
-        return tiles.stream().filter(tile -> p.equals(tile.GetPosition())).findFirst().orElse(null);
+        List<Tile> tilesInPos = tiles.stream().filter(tile -> p.equals(tile.GetPosition())).collect(Collectors.toList());
+        return tilesInPos.get(0);
     }
 
     public void buildTileList(String stringList, Player ThePlayer)
@@ -41,19 +44,26 @@ public class Board {
             String TileString = String.valueOf(tile);
             Position tilePos = new Position(indexCurrent_X, indexCurrent_Y);
             if(tile == '.') {
-                tiles.add(new Empty(tilePos,'.'));
+                Empty empty = new Empty('.');
+                empty.init(tilePos);
+                tiles.add(empty);
             }
             else if(tile == '#') {
-                tiles.add(new Empty(tilePos,'#'));
+                Wall wall = new Wall('#');
+                wall.init(tilePos);
+                tiles.add(wall);
             }
             else if (tile == '@') {
-                ThePlayer.SetPosition(tilePos);
+                ThePlayer.init(tilePos, () -> playerDead(), (s) -> printToScreen(s));
                 tiles.add(ThePlayer);
             }
             else{
-                Enemy enemy = tileFactory.CreateEnemy(tilePos, tile);
+                Enemy enemy = tileFactory.CreateEnemy(tile);
+                enemy.init(tilePos, () -> replaceEnemyWithEmpty(enemy), (s) -> printToScreen(s));
                 if(enemy == null){
-                    tiles.add(new Empty(tilePos,'.'));
+                    Empty empty = new Empty('.');
+                    empty.init(tilePos);
+                    tiles.add(empty);
                 }
                 else{
                     tiles.add(enemy);
@@ -64,9 +74,29 @@ public class Board {
         }
     }
 
+    private void replaceEnemyWithEmpty(Enemy enemy){
+        Enemies.remove(enemy);
+        tiles.remove(enemy);
+        Empty empty = new Empty('.');
+        empty.init(enemy.GetPosition());
+        tiles.add(empty);
+    }
+
+    private void playerDead(){
+        ThePlayer.character = 'X';
+        System.out.println("YOU LOST");
+        System.exit(0);
+    }
+
+    private void printToScreen(String s){
+        System.out.println(s);
+    }
+
     public void PrintGameBoard()
     {
-        String result = tiles.stream().sorted().map(t -> t.ToChar() + t.GetPosition().getX()==XTop ? "/n" : "").collect(Collectors.joining(""));
+        String result = tiles.stream().sorted()
+                .map(t -> t.GetPosition().getX()==(XTop-1) ? (t.ToChar() + "\n") : String.valueOf(t.ToChar()))
+                .collect(Collectors.joining(""));
         System.out.println(result);
     }
 

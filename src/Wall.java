@@ -1,7 +1,7 @@
 public class Wall extends Tile{
-    public Wall(Position pos,char c)
+    public Wall(char c)
     {
-        super(pos,c);
+        super(c);
     }
 
     @Override

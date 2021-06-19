@@ -7,8 +7,8 @@ public class Trap extends Enemy{
     private int tickCount;
     private boolean visible;
 
-    public Trap(Position position, char tile, String name, int healthCapacity, int attack, int defence, int experience_value,int visibility_time, int invisibility_time) {
-        super(position, tile, name, healthCapacity, attack, defence, experience_value);
+    public Trap(char tile, String name, int healthCapacity, int attack, int defence, int experience_value,int visibility_time, int invisibility_time) {
+        super(tile, name, healthCapacity, attack, defence, experience_value);
         this.tickCount=0;
         this.invisibilityTime = invisibility_time;
         this.visibilityTime = visibility_time;

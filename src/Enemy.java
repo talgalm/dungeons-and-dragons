@@ -9,14 +9,14 @@ public abstract class Enemy extends Unit {
 
     private int experienceValue;
     protected Boolean isBribed;
-    private MessageCallBack messageCallBack;
-    private DeathCallBack enemyDeathCallBack;
 
-    public Enemy(Position position, char tile, String name, int healthCapacity, int attack, int defence,int experience_value) {
-        super(position, tile, name, healthCapacity, attack, defence);
+    public Enemy(char tile, String name, int healthCapacity, int attack, int defence,int experience_value) {
+        super(tile, name, healthCapacity, attack, defence);
         this.experienceValue = experience_value;
         isBribed = false;
     }
+
+
 
     public int GetExperience(){ return experienceValue; }
 
@@ -25,10 +25,8 @@ public abstract class Enemy extends Unit {
         e.onEnemyDeath();
     }
 
-    public Empty onEnemyDeath(){
-//        Empty newPlace = new Empty(this.GetPosition(), '.');
-        enemyDeathCallBack.Call(); //where it will be replaced with other
-        return null;
+    public void onEnemyDeath(){
+        deathCallBack.Call(); //where it will be replaced with other
     }
 
     public void VisitedBy(Unit unit) {

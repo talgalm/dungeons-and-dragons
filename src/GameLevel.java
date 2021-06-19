@@ -24,6 +24,7 @@ public class GameLevel {
             while(playerWishedPosition == null){
                 playerWishedPosition = player.MoveTo(c);
             }
+            playerWishedPosition =
             if (playerWishedPosition.getX() == -1) {
                 Enemy bribedEnemy = player.CastSpecialAbility(Enemies);
                 if(bribedEnemy!=null) {
