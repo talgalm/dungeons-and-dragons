@@ -16,7 +16,7 @@ public class Resource{
         this.resourceCurrent = resourceCurrent;
     }
 
-    public void AddToResourceCurrent(int amount){
+    public void AddToResourceCurrent(double amount){
         if(resourceCurrent+amount > resourceMax)
             amount = resourceMax-resourceCurrent;
         resourceCurrent += amount;

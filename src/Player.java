@@ -4,19 +4,14 @@ import java.util.ArrayList;
 public abstract class Player extends Unit {
     private int experience;
     protected int playerLevel;
-//    private Ability ability;
     private final int POINTS = 50;
     private int toLevelUpExperience;
-    ///
-    private Resource abilityResource = null;
-    ///
 
 
     public Player(char tile, String name, int healthCapacity, int attack, int defence) {
         super(null, tile, name, healthCapacity, attack, defence);
         experience = 0;
         playerLevel = 1;
-//        this.ability = ability;
         toLevelUpExperience = playerLevel*POINTS;
     }
 
@@ -50,9 +45,9 @@ public abstract class Player extends Unit {
     }
     public void onKill(Enemy e){
         AddExperience(e.GetExperience());
-        e.onDeath();
+        Empty empty = e.onEnemyDeath(); //it will be
+        accept(empty);
     }
-
 
     public void accept(Player player) { }
 
@@ -60,17 +55,11 @@ public abstract class Player extends Unit {
         this.Combat(enemy);
         if (!enemy.IsAlive()) {
             onKill(enemy);
+            earnCash(enemy.health.GetResourceMax());
         }
     }
 
-
-
-//    public void CastSpecialAbility(ArrayList<Enemy> Enemies,int current_tick)
-//    {
-////        if(abilityResource.GetResourceCurrent() < )
-//        ability.cast(Enemies , GetPosition(),GetHealth().GetResourceCurrent(),GetDefensePoints(),current_tick);
-//    }
-
+    public void earnCash(int healthPoints) {}
     public abstract Enemy CastSpecialAbility(ArrayList<Enemy> Enemies) ;
 
     @Override

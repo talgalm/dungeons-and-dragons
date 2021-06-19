@@ -29,10 +29,6 @@ public class TileFactory {
                 return new Monster(pos, 'k', "Lannister Knight", 200, 14, 8, 50, 4);
             case 'q':
                 return new Monster(pos, 'q', "Queen's Guard", 400, 20, 15, 100, 5);
-            case 'B':
-                return new Trap(pos, 'B', "Bonus Trap", 1, 1, 1, 250, 1, 10);
-            case 'Q':
-                return new Trap(pos, 'Q', "Queen's Trap", 250, 50, 10, 100, 3, 10);
             case 'z':
                 return new Monster(pos, 'z', "Wright", 600, 30, 15, 100, 3);
             case 'b':
@@ -41,6 +37,10 @@ public class TileFactory {
                 return new Monster(pos, 'g', "Giant-Wright", 1500, 100, 40, 500, 5);
             case 'w':
                 return new Monster(pos, 'w', "White Walker", 2000, 150, 50, 1000, 6);
+            case 'B':
+                return new Trap(pos, 'B', "Bonus Trap", 1, 1, 1, 250, 1, 10);
+            case 'Q':
+                return new Trap(pos, 'Q', "Queen's Trap", 250, 50, 10, 100, 3, 10);
             case 'D':
                 return new Trap(pos, 'D', "Death Trap", 500, 100, 20, 250, 1, 10);
         }

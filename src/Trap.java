@@ -2,41 +2,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Trap extends Enemy{
-    private int visibility_time;
-    private int invisibility_time;
-    private int tick_count;
+    private int visibilityTime;
+    private int invisibilityTime;
+    private int tickCount;
     private boolean visible;
+
     public Trap(Position position, char tile, String name, int healthCapacity, int attack, int defence, int experience_value,int visibility_time, int invisibility_time) {
         super(position, tile, name, healthCapacity, attack, defence, experience_value);
-        tick_count=0;
-        this.invisibility_time = invisibility_time;
-        this.visibility_time = visibility_time;
+        this.tickCount=0;
+        this.invisibilityTime = invisibility_time;
+        this.visibilityTime = visibility_time;
+        this.visible = true;
     }
+
     public Position Move(Position pos, List<Enemy> ignoreAbleList)
     {
-        visible = tick_count < visibility_time;
-        if (tick_count == (visibility_time + invisibility_time))
-        {
-            tick_count=0;
-        }
-        else tick_count++;
-        if (GetPosition().Range(pos)<1.3)
+        visible = tickCount < visibilityTime;
+        if (tickCount == visibilityTime + invisibilityTime)
+            tickCount=0;
+        else
+            tickCount++;
+        if (GetPosition().Range(pos)<2)
             return new Position(-1,-1);
-        return  GetPosition();
+        return GetPosition();
     }
 
     @Override
-    public void TickUp() {
-
-    }
+    public void TickUp() { }
 
     @Override
-    public Position MoveAsBribed(ArrayList<Enemy> enemies) {
-        return null;
-    }
+    public Position MoveAsBribed(ArrayList<Enemy> enemies) { return null; }
 
     @Override
-    public void AcceptBribe() {
-
-    }
+    public void AcceptBribe() { }
 }

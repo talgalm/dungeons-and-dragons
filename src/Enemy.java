@@ -19,18 +19,16 @@ public abstract class Enemy extends Unit {
     }
 
     public int GetExperience(){ return experienceValue; }
-    public void onKill(Player p){
-        messageCallBack.Send("GAME OVER");
-        p.SetCharacter('X');
-    }
+
     public void onEnemyKillAsBribed(Enemy e){
         messageCallBack.Send("The bribed " + GetName() + "Killed " +e.GetName());
-        e.onDeath();
+        e.onEnemyDeath();
     }
 
-    public void onDeath(){
+    public Empty onEnemyDeath(){
 //        Empty newPlace = new Empty(this.GetPosition(), '.');
-        enemyDeathCallBack.Call();
+        enemyDeathCallBack.Call(); //where it will be replaced with other
+        return null;
     }
 
     public void VisitedBy(Unit unit) {
@@ -41,7 +39,7 @@ public abstract class Enemy extends Unit {
         if(!isBribed) {
             this.Combat(player);
             if (!player.IsAlive())
-                onKill(player);
+                player.onDeath();
         }
     }
     public void accept(Enemy enemy) {

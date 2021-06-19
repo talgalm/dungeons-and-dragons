@@ -93,11 +93,11 @@ public class GameManager {
         System.out.println( " -------------------------------------------------------------------------------------- " + "\n" +
             "|                                 Please choose a character:                           |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|                                      New Character!!                                 |" +"\n" +
+            "|                                  New Character!! 'Briber'                            |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|           Name        |  Health  |  Attack  |  Defense  |  cash per kill |" +"\n" +
+            "|             Name            |  Health  |  Attack  |  Defense  | cash per kill  |      " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|0.  Tyrion Lannister   |    200   |    15    |     4     |     3          |" +"\n" +
+            "|0.      Tyrion Lannister     |    200   |    15    |     4     |     35         |      " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
             "|         Tyrion might be weak, but every time he kills an enemy he gets cash.         |" +"\n" +
             "|    35% of enemy's health as cash. With this cash, he can BRIBE a Lannister guard     |" +"\n" +

@@ -3,11 +3,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Briber extends Player{
-    private Resource cashPercentage;
+    private Resource cash;
+    private int cashPercentage;
 
     public Briber(char tile, String name, int healthCapacity, int attack, int defence,int cashPercentage) {
         super(tile, name, healthCapacity, attack, defence);
-        this.cashPercentage = new Resource(Integer.MAX_VALUE, 0);
+        this.cashPercentage = cashPercentage;
+        this.cash = new Resource(Integer.MAX_VALUE, 0);
     }
 
     public void LevelUp(){
@@ -29,6 +31,11 @@ public class Briber extends Player{
             }
         }
         return null;
+    }
+
+    @Override
+    public void earnCash(int healthPoints) {
+        cash.AddToResourceCurrent((healthPoints * cashPercentage)/100);
     }
 
     @Override

@@ -12,12 +12,8 @@ public class Board {
     {
         this.YTop = h;
         this.XTop = w;
-        //Position savePlayerPos = new Position(0,0);
     }
 
-    public ArrayList<Tile> getTiles() {
-        return tiles;
-    }
 
     public ArrayList<Enemy> getEnemies() {
         return Enemies;
@@ -33,6 +29,7 @@ public class Board {
 
     public void buildTileList(String stringList, Player ThePlayer)
     {
+        this.ThePlayer = ThePlayer;
         int indexCurrent_X = 0, indexCurrent_Y = 0;
         for (char tile : stringList.toCharArray())
         {
@@ -60,6 +57,7 @@ public class Board {
                 }
                 else{
                     tiles.add(enemy);
+                    Enemies.add(enemy);
                 }
             }
             indexCurrent_X++;
