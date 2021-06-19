@@ -34,15 +34,15 @@ public class Rogue extends Player{
 
     @Override
     public String getAbility() {
-        return "Fan of Knives:  cost" + energy.GetResourceCurrent()+"/"+energy.GetResourceMax() +" ability cost" +abilityCost ;
+        return "  Fan of Knives:  cost" + energy.GetResourceCurrent()+"/"+energy.GetResourceMax() +" ability cost" +abilityCost ;
     }
     @Override
     public String getDescription() {
-        return GetName() + " Health:" +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
-                + " Attack:" +GetAttackPoints()
-                + " Defense:" +GetDefensePoints()
-                + " Level:" +playerLevel
-                + " Experience:" + getExperience() + getAbility();
+        return GetName() + "  Health: " +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
+                + "  Attack: " +GetAttackPoints()
+                + "  Defense: " +GetDefensePoints()
+                + "  Level: " +playerLevel
+                + "  Experience: " + getExperience() + getAbility();
     }
 
     @Override

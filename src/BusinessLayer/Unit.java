@@ -54,8 +54,8 @@ public abstract class Unit extends Tile{
         messageCallBack.Send(unit.getDescription());
         int RA = this.GetRandomAttackPoints();
         int RD = unit.GetRandomDefensePoints();
-        messageCallBack.Send(this.GetName() + "rolls " + RA + " attack points");
-        messageCallBack.Send(unit.GetName() + "rolls " + RD + " defense points");
+        messageCallBack.Send(this.GetName() + " rolls " + RA + " attack points ");
+        messageCallBack.Send(unit.GetName() + " rolls " + RD + " defense points ");
         int damage = Math.max((RA-RD ),0);
         messageCallBack.Send(this.GetName() + " dealt "  +damage+ " to " + unit.GetName());
         unit.TakeDamage(damage);

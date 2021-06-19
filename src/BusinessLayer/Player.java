@@ -46,10 +46,10 @@ public abstract class Player extends Unit {
 
     protected void onDeath(){
         deathCallBack.Call();
-        messageCallBack.Send("You died");
+        messageCallBack.Send("You died ");
     }
     public void onKill(Enemy e){
-        messageCallBack.Send(e.name + " died." + GetName() + " gained " + e.GetExperience() + " experience" );
+        messageCallBack.Send(e.name + " died." + GetName() + " gained " + e.GetExperience() + " experience " );
         AddExperience(e.GetExperience());
         SwapPositions(e);
         e.onEnemyDeath();

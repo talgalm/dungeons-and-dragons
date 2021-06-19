@@ -42,7 +42,11 @@ public class Briber extends Player{
 
     @Override
     public String getDescription() {
-        return null;
+        return GetName() + "  Health: " +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
+                + "  Attack: " +GetAttackPoints()
+                + "  Defense: " +GetDefensePoints()
+                + "  Level: " +playerLevel
+                + "  Experience: " + getExperience() + getAbility();
     }
 
     @Override
