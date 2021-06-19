@@ -1,35 +1,14 @@
 public class Wall extends Tile{
-    public Wall(Position pos,char c )
+    public Wall(Position pos,char c)
     {
         super(pos,c);
-
     }
 
     @Override
-    public void Interaction(Tile tile) {
-
-    }
+    public void TickUp() { }
 
     @Override
-    public void Interaction(Empty empty) {
-
+    public void VisitedBy(Unit unit) {
+        unit.accept(this);
     }
-
-    @Override
-    public void Interaction(Wall wall) {
-
-    }
-
-    @Override
-    public void Interaction(Enemy enemy) {
-
-    }
-
-
-    @Override
-    public void accept(Tile tile) {
-
-    }
-
-
 }

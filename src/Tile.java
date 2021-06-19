@@ -1,6 +1,7 @@
 public abstract class Tile{
     protected char character;
     protected Position position;
+
     protected Tile ( Position pos, char c )
     {
         character = c;
@@ -10,29 +11,19 @@ public abstract class Tile{
     {
         return character;
     }
+    public void SetCharacter(char character) { this.character = character; }
 
     public Position GetPosition() {
         return position;
     }
-
     public void SetPosition(Position position) {
         this.position = position;
     }
 
-    public char toChar(){
+    public char ToChar(){
         return GetChar();
     }
 
-    public abstract void Interaction(Tile tile);
-    public abstract void Interaction(Empty empty);
-    public abstract void Interaction(Wall wall);
-    public abstract void Interaction(Enemy enemy);
-
-
-    public void setCharacter(char character) {
-        this.character = character;
-    }
-
-
-    public abstract void accept(Tile tile);
+    public abstract void TickUp();
+    public abstract void VisitedBy(Unit unit);
 }

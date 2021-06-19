@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Trap extends Enemy{
     private int visibility_time;
     private int invisibility_time;
@@ -9,7 +12,7 @@ public class Trap extends Enemy{
         this.invisibility_time = invisibility_time;
         this.visibility_time = visibility_time;
     }
-    public Position Move(Position pos)
+    public Position Move(Position pos, List<Enemy> ignoreAbleList)
     {
         visible = tick_count < visibility_time;
         if (tick_count == (visibility_time + invisibility_time))
@@ -17,8 +20,23 @@ public class Trap extends Enemy{
             tick_count=0;
         }
         else tick_count++;
-        if (GetPosition().Range(pos)<2)
+        if (GetPosition().Range(pos)<1.3)
             return new Position(-1,-1);
         return  GetPosition();
+    }
+
+    @Override
+    public void TickUp() {
+
+    }
+
+    @Override
+    public Position MoveAsBribed(ArrayList<Enemy> enemies) {
+        return null;
+    }
+
+    @Override
+    public void AcceptBribe() {
+
     }
 }

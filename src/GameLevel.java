@@ -5,42 +5,54 @@ import java.util.Scanner;
 public class GameLevel {
     private Board board;
     private Player player;
-    private ArrayList<Enemy> Enemies = new ArrayList<Enemy>(); //****can be erased****
-    private int Tick;
+    private ArrayList<Enemy> Enemies;
+    private ArrayList<Enemy> bribedEnemies;
     public GameLevel (Board b)
     {
-        this.Tick = 0;
         this.board = b;
         this.player = b.getThePlayer();
         this.Enemies = b.getEnemies();
+        this.bribedEnemies = new ArrayList<>();
     }
     public void init()
     {
-        while (!Enemies.isEmpty()) {
+        while (!Enemies.isEmpty()) { // or if dead
             board.PrintGameBoard();
             Scanner scanner = new Scanner(System.in);
             char c = scanner.nextLine().charAt(0);
-            InputProviderr inputProvider =  new InputProviderr();
-            Position playerMove = inputProvider.getAction(player.GetPosition(), c);
-            if (playerMove.getX() == -1)
-            {
-                player.Cast_Special_Ability(Enemies, Tick);
+            Position playerWishedPosition = null;
+            while(playerWishedPosition == null){
+                playerWishedPosition = player.MoveTo(c);
+            }
+            if (playerWishedPosition.getX() == -1) {
+                Enemy bribedEnemy = player.CastSpecialAbility(Enemies);
+                if(bribedEnemy!=null) {
+                    Enemies.remove(bribedEnemy);
+                    bribedEnemies.add(bribedEnemy);
+                }
             }
             else {
-                Tile t = board.GetTile(playerMove);
-                t.accept (player);
+                Tile t = board.GetTile(playerWishedPosition);
+                t.VisitedBy(player);
             }
-            for (Enemy e : Enemies) {
-                Position enemyMove = e.Move(player.GetPosition());
-                if (enemyMove.getX() == -1)
-                {
-                    e.Combat(player);
+            for (Enemy enemy : Enemies) {
+                Position enemyMove = enemy.Move(player.GetPosition(), bribedEnemies); //try to find player, if no, look for bribed
+                if (enemyMove.getX() == -1) { //if a trap and is close to player
+                    enemy.Combat(player);
                 }
-                Tile t = board.GetTile(enemyMove);
-                t.accept(e);
+                else{
+                    Tile t = board.GetTile(enemyMove);
+                    t.VisitedBy(enemy);
+                }
             }
-            Tick++;
+            //Extra Code for the bribed enemies
+            for(Enemy bribedEnemy : bribedEnemies){
+                Position enemyMove = bribedEnemy.MoveAsBribed(Enemies);
+                Tile t = board.GetTile(enemyMove);
+                t.VisitedBy(bribedEnemy);
+            }
+            //end of extra code
+            board.TickAll();
         }
     }
-
 }

@@ -1,19 +1,30 @@
 public class Resource{
-    private int resourcePool;
-    private int resourceAmount;
+    private int resourceMax;
+    private int resourceCurrent;
 
-    public Resource(int resourcePool, int resourceAmount) {
-        this.resourceAmount = resourceAmount;
-        this.resourcePool = resourcePool;
+    public Resource(int resourceMax, int resourceCurrent) {
+        this.resourceMax = resourceMax;
+        this.resourceCurrent = resourceCurrent;
     }
-    public int getResourcePool(){ return resourcePool;}
-    public int getResourceAmount(){return resourceAmount;}
-    public void setResourcePool(int resourcePool){this.resourceAmount = resourceAmount;}
-    public void setResourceAmount(int resourceAmount){this.resourceAmount = resourceAmount;}
-    public void addHealthPool(int playerLevel){
-        resourcePool = playerLevel * 10 + resourcePool;
+    public int GetResourceMax(){ return resourceMax;}
+    public void SetResourceMax(int resourceMax){this.resourceMax = resourceMax;}
+
+    public int GetResourceCurrent(){return resourceCurrent;}
+    public void SetResourceCurrent(int resourceCurrent){
+        if(resourceCurrent > resourceMax)
+            resourceCurrent = resourceMax;
+        this.resourceCurrent = resourceCurrent;
     }
-    public void takeDamage(int Damage) {
-        resourceAmount = resourceAmount - Damage;
+
+    public void AddToResourceCurrent(int amount){
+        if(resourceCurrent+amount > resourceMax)
+            amount = resourceMax-resourceCurrent;
+        resourceCurrent += amount;
     }
+    public void AddToResourceMax(int amount){
+        if(amount > 0)
+            resourceMax += amount;
+    }
+
+    public void TakeFromResourceCurrent(int Taken) { resourceCurrent = resourceCurrent - Taken; }
 }

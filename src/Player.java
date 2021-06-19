@@ -1,96 +1,81 @@
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class Player extends Unit {
-    private Ability ability;
-    private MessageCallBack messageCallBack;
-    private DeathCallBack deathCallBack;
-    private MoveCallBack moveCallBack;
-    private int exprirence;
-    private int playerLevel;
+public abstract class Player extends Unit {
+    private int experience;
+    protected int playerLevel;
+//    private Ability ability;
     private final int POINTS = 50;
+    private int toLevelUpExperience;
+    ///
+    private Resource abilityResource = null;
+    ///
 
 
-    public Player(Position position,char tile, String name, int healthCapacity, int attack, int defence,Ability ability ) {
-        super(position, tile, name, healthCapacity, attack, defence);
-        this.ability = ability;
-        exprirence = 0;
+    public Player(char tile, String name, int healthCapacity, int attack, int defence) {
+        super(null, tile, name, healthCapacity, attack, defence);
+        experience = 0;
         playerLevel = 1;
+//        this.ability = ability;
+        toLevelUpExperience = playerLevel*POINTS;
+    }
+
+    public void LevelUpHealthPoints(int playerLevel) {
+        health.AddToResourceMax(10*playerLevel);
+        health.SetResourceCurrent(health.GetResourceMax());
+    }
+    public void LevelUpAttackPoints(int playerLevel){attackPoints = attackPoints + (4 * playerLevel); }
+    public void LevelUpDefensePoints(int playerLevel){ this.defensePoints = defensePoints + playerLevel;}
+
+    public void LevelUp(){
+        this.experience = experience - toLevelUpExperience;
+        playerLevel = playerLevel + 1;
+        LevelUpHealthPoints(playerLevel);
+        LevelUpAttackPoints(playerLevel);
+        LevelUpDefensePoints(playerLevel);
+        toLevelUpExperience = playerLevel*POINTS;
+    }
+
+
+    public void AddExperience(int additionalExperience){
+        this.experience += additionalExperience;
+        while(experience > toLevelUpExperience ) {
+            LevelUp();
         }
+    }
 
     protected void onDeath(){
-        messageCallBack.send("YOU LOST");
-        deathCallBack.call();
+        messageCallBack.Send("YOU LOST");
+        deathCallBack.Call();
     }
     public void onKill(Enemy e){
-        addExprience(e.GetExpreience());
+        AddExperience(e.GetExperience());
         e.onDeath();
     }
-    public void addExprience(int additionExprience){
-        this.exprirence = additionExprience + exprirence;
-        while(toLevelUp() > levelUpRequirment()) {
-            levelUp();
-            exprirence = exprirence - toLevelUp();
-        }
-    }
-    public void levelUp(){
-        this.exprirence = exprirence - (POINTS * playerLevel);
-        playerLevel = playerLevel + 1;
-        getHealth().setResourceAmount(getHealth().getResourcePool());
-        getHealth().addHealthPool(playerLevel);
-        addDefensePoints(playerLevel);
-        int attack = ability.levelUp(playerLevel);
-        SetAttackPoints(attack + getAttackPoints());
-        addAttackPoints(playerLevel);
-    }
-    public int toLevelUp(){
-        return (playerLevel * POINTS) - exprirence;
-    }
-    public int levelUpRequirment(){
-        return playerLevel * playerLevel;
-    }
 
-    public void Interaction(Enemy enemy) {
+
+    public void accept(Player player) { }
+
+    public void accept(Enemy enemy) {
         this.Combat(enemy);
-        if(!enemy.isAlive()) {
+        if (!enemy.IsAlive()) {
             onKill(enemy);
-            moveCallBack.move(this.GetPosition(), enemy.GetPosition());
         }
     }
 
 
-    public void Interaction(Empty empty) {
-        moveCallBack.move(this.GetPosition(), empty.GetPosition());
-    }
+
+//    public void CastSpecialAbility(ArrayList<Enemy> Enemies,int current_tick)
+//    {
+////        if(abilityResource.GetResourceCurrent() < )
+//        ability.cast(Enemies , GetPosition(),GetHealth().GetResourceCurrent(),GetDefensePoints(),current_tick);
+//    }
+
+    public abstract Enemy CastSpecialAbility(ArrayList<Enemy> Enemies) ;
 
     @Override
-    public void Interaction(Player player) {
-
-    }
-
-
-    @Override
-    public void Interaction(Tile tile) {
-        int x=-1;
-    }
-
-    @Override
-    public void accept(Tile tile) {
-        this.Interaction(tile);
-    }
-
-
-    public void accept(Empty e) {
-        this.Interaction(e);
-    }
-    public void accept(Enemy e){
-        this.Interaction(e);
-    }
-    public void accept(Wall w) {
-    }
-    public void Cast_Special_Ability(ArrayList<Enemy> Enemies,int current_tick)
-    {
-        ability.cast(Enemies , GetPosition(),getHealth().getResourceAmount(),getDefensePoints(),current_tick);
-    }
+    public void VisitedBy(Unit unit) { unit.accept(this); }
 
 }
+
 

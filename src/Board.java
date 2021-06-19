@@ -1,18 +1,18 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Board {
-    private ArrayList<Tile> tiles = new ArrayList<Tile>();
-    private ArrayList<Enemy> Enemies = new ArrayList<Enemy>();
-    private int height;
-    private int width;
+    private ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<Enemy> Enemies = new ArrayList<>();
+    private int YTop;
+    private int XTop;
     private Player ThePlayer;
+    private TileFactory tileFactory = new TileFactory();
     public Board (int h , int w)
     {
-        this.height = h;
-        this.width = w;
-        Position savePlayerPos = new Position(0,0);
+        this.YTop = h;
+        this.XTop = w;
+        //Position savePlayerPos = new Position(0,0);
     }
 
     public ArrayList<Tile> getTiles() {
@@ -28,55 +28,52 @@ public class Board {
     }
 
     public Tile GetTile(Position p){
-        for (Tile t:
-             tiles) {
-            if (t.GetPosition().getX() == p.getX() && t.GetPosition().getY() == p.getY())
-                return t;
-        }
-        return null;
+        return tiles.stream().filter(tile -> p.equals(tile.GetPosition())).findFirst().orElse(null);
     }
 
-    public void buildTileList(String stringList, String CharMyPlayer)
+    public void buildTileList(String stringList, Player ThePlayer)
     {
-        int currentIndexWidth = 0, currentIndexHeight = height-1;
+        int indexCurrent_X = 0, indexCurrent_Y = 0;
         for (char tile : stringList.toCharArray())
         {
-            if (currentIndexWidth == width)
+            if (indexCurrent_X == XTop)
             {
-                currentIndexWidth = 0;
-                currentIndexHeight--;
+                indexCurrent_X = 0;
+                indexCurrent_Y++;
             }
-            String TileString =String.valueOf(tile);
-
-            if (tile == '@') {
-                ThePlayer = (Player) (new TileFactory()).Create(CharMyPlayer, new Position(currentIndexWidth,currentIndexHeight));
+            String TileString = String.valueOf(tile);
+            Position tilePos = new Position(indexCurrent_X, indexCurrent_Y);
+            if(tile == '.') {
+                tiles.add(new Empty(tilePos,'.'));
+            }
+            else if(tile == '#') {
+                tiles.add(new Empty(tilePos,'#'));
+            }
+            else if (tile == '@') {
+                ThePlayer.SetPosition(tilePos);
                 tiles.add(ThePlayer);
             }
-            else {
-                Tile notPlayer = (new TileFactory()).Create(TileString,new Position(currentIndexWidth,currentIndexHeight));
-                tiles.add(notPlayer);
-                if (tile != '.' && tile != '#')
-                    Enemies.add((Enemy)notPlayer);
+            else{
+                Enemy enemy = tileFactory.CreateEnemy(tilePos, tile);
+                if(enemy == null){
+                    tiles.add(new Empty(tilePos,'.'));
+                }
+                else{
+                    tiles.add(enemy);
+                }
             }
-            currentIndexWidth++;
+            indexCurrent_X++;
         }
     }
+
     public void PrintGameBoard()
     {
-        char [][] arr = new char[5][4];
-        for (Tile t:
-             tiles) {
-            arr[t.GetPosition().getX()][t.GetPosition().getY()] = t.toChar();
-        }
+        String result = tiles.stream().sorted().map(t -> t.ToChar() + t.GetPosition().getX()==XTop ? "/n" : "").collect(Collectors.joining(""));
+        System.out.println(result);
+    }
 
-        for (int i=height-1;i>=0;i--)
-        {
-            for(int j=0; j<= width-1;j++)
-            {
-                System.out.print(arr[j][i]);
-            }
-            System.out.println();
-        }
+    public void TickAll(){
+        tiles.stream().forEach(t -> t.TickUp());
     }
 
 }

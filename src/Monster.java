@@ -1,54 +1,71 @@
-public class Monster extends Enemy{
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-    private int vision_range;
+public class Monster extends Enemy {
+
+    private int visionRange;
+
     public Monster(Position position, char tile, String name, int healthCapacity, int attack, int defence, int experience_value, int vision_range) {
         super(position, tile, name, healthCapacity, attack, defence, experience_value);
-        this.vision_range=vision_range;
+        this.visionRange = vision_range;
     }
 
-    public int getVision_range() {
-        return vision_range;
+    public Position Move(Position pos, List<Enemy> bribedEnemies) {
+        double distanceFromPlayer = position.Range(pos);
+        return ((distanceFromPlayer < visionRange) ? moveToPlayer(pos) : SearchForBribeOrRandom(bribedEnemies));
     }
 
-    public void setVision_range(int vision_range) {
-        this.vision_range = vision_range;
+    private Position moveToPlayer(Position playerPos) {
+        int dx = position.getX() - playerPos.getX();
+        int dy = position.getY() - playerPos.getY();
+        Character where = ((Math.abs(dx) > Math.abs(dy)) ? ((dx > 0) ? 'a' : 'd') : ((dy > 0) ? 'w' : 's'));
+        return MoveTo(where);
     }
-    public Position Move(Position pos)
-    {
-        int movement = -1;
-        if (GetPosition().Range(pos) < vision_range)
-        {
 
-            int dx = (GetPosition().getX()-pos.getX());
-            int dy = (GetPosition().getY()-pos.getY());
-            if (Math.abs(dx) > Math.abs(dy))
-            {
-                if (dx > 0)
-                {
-                    movement = 0; //left
-                }
-                else  movement = 1;//right
-
-            }
-            else
-            {
-                if (dy > 0)
-                {
-                    movement = 2; //up
-                }
-                else  movement = 3;//down
-            }
-
+    private Position SearchForBribeOrRandom(List<Enemy> bribedEnemies){
+        try {
+            Position LocatedBribedEnemy = bribedEnemies.stream().filter(t -> t.GetPosition().Range(GetPosition()) < visionRange).findAny().get().GetPosition();
+            return moveToPlayer(LocatedBribedEnemy);
         }
-        else{
-            movement = (int)(Math.random()*3);
+        catch(Exception e){
+            return randomMove();
         }
-        return switch (movement) {
-            case 0 -> new Position(GetPosition().getX() -1, GetPosition().getY());
-            case 1 -> new Position(GetPosition().getX()+1 , GetPosition().getY());
-            case 2 -> new Position(GetPosition().getX(), GetPosition().getY() + 1);
-            case 3 -> new Position(GetPosition().getX(), GetPosition().getY() - 1 );
-            default -> null;
-        };
     }
+    private Position randomMove() {
+        char[] moveArray = {'a', 's', 'd', 'w'};
+        int rnd = new Random().nextInt(moveArray.length);
+        return MoveTo(moveArray[rnd]);
+    }
+
+    public Position MoveAsBribed(ArrayList<Enemy> enemies) {
+        Double bestRange = null;
+        Enemy closestEnemy = null;
+        for (Enemy enemy : enemies) {
+            if (bestRange == null) {
+                bestRange = enemy.GetPosition().Range(GetPosition());
+                closestEnemy = enemy;
+            } else {
+                Double tmpRange = GetPosition().Range(enemy.GetPosition());
+                if (tmpRange < bestRange) {
+                    bestRange = tmpRange;
+                    closestEnemy = enemy;
+                }
+            }
+        }
+        if (closestEnemy.GetPosition() == null)
+            return randomMove();
+        else
+            return moveToPlayer(closestEnemy.GetPosition());
+    }
+
+    public void AcceptBribe(){
+        isBribed = true;
+    }
+
+    @Override
+    public void TickUp() { }
+
+    @Override
+    public void VisitedBy(Unit unit) { }
 }

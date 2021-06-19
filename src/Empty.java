@@ -1,41 +1,14 @@
 public class Empty extends Tile {
 
-    public Empty (Position pos,char c)
-    {
-        super(pos,c);
+    public Empty(Position pos, char c) {
+        super(pos, c);
     }
 
     @Override
-    public void Interaction(Tile tile) {
-        Position newpO = tile.GetPosition();
-        tile.position = position;
-        position = newpO;
-
-    }
+    public void TickUp() { }
 
     @Override
-    public void Interaction(Empty empty) {
-
+    public void VisitedBy(Unit unit) {
+        unit.accept(this);
     }
-
-    @Override
-    public void Interaction(Wall wall) {
-
-    }
-
-    @Override
-    public void Interaction(Enemy enemy) {
-
-    }
-
-
-    @Override
-    public void accept(Tile tile) {
-        this.Interaction(tile);
-    }
-
-
-
-
-
 }

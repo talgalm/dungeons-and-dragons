@@ -1,61 +1,62 @@
-public class Enemy extends Unit {
+import Callbacks.DeathCallBack;
+import Callbacks.MessageCallBack;
 
-    private int experience_value;
+import java.util.ArrayList;
+import java.util.List;
+//import Callbacks.MoveCallBack;
+
+public abstract class Enemy extends Unit {
+
+    private int experienceValue;
+    protected Boolean isBribed;
     private MessageCallBack messageCallBack;
-    private DeathCallBack deathCallBack;
-    private MoveCallBack moveCallBack;
+    private DeathCallBack enemyDeathCallBack;
 
     public Enemy(Position position, char tile, String name, int healthCapacity, int attack, int defence,int experience_value) {
         super(position, tile, name, healthCapacity, attack, defence);
-        this.experience_value = experience_value;
+        this.experienceValue = experience_value;
+        isBribed = false;
     }
 
-    public int GetExpreience(){ return experience_value; }
+    public int GetExperience(){ return experienceValue; }
     public void onKill(Player p){
-        messageCallBack.send("GAME OVER");
-        p.setCharacter('X');
+        messageCallBack.Send("GAME OVER");
+        p.SetCharacter('X');
     }
+    public void onEnemyKillAsBribed(Enemy e){
+        messageCallBack.Send("The bribed " + GetName() + "Killed " +e.GetName());
+        e.onDeath();
+    }
+
     public void onDeath(){
-
-    }
-    public void Interaction(Player p) {
-        this.Combat(p);
-        if(!p.isAlive())
-            onKill(p);
+//        Empty newPlace = new Empty(this.GetPosition(), '.');
+        enemyDeathCallBack.Call();
     }
 
-    @Override
-    public void Interaction(Enemy enemy) {
-        int x=0;
+    public void VisitedBy(Unit unit) {
+        unit.accept(this);
     }
 
-    @Override
-    public void Interaction(Empty empty) {
-        moveCallBack.move(this.GetPosition() , empty.GetPosition()); }
-
-
-
-
-    public void accept(Empty e) { this.Interaction(e); }
-
-
-
-    public void accept(Player p){ this.Interaction(p);}
-    public void accept(Wall w) {}
-
-    @Override
-    public void Interaction(Tile tile) {
-
+    public void accept(Player player) {
+        if(!isBribed) {
+            this.Combat(player);
+            if (!player.IsAlive())
+                onKill(player);
+        }
+    }
+    public void accept(Enemy enemy) {
+        if(this.isBribed & !enemy.isBribed | enemy.isBribed & !this.isBribed){
+            Combat(enemy);
+            if (!enemy.IsAlive()) {
+                onEnemyKillAsBribed(enemy);
+            }
+        }
     }
 
-    public void accept(Tile t) {
-    }
+    public abstract Position Move(Position pos, List<Enemy> bribedEnemies);
 
+    public abstract Position MoveAsBribed(ArrayList<Enemy> enemies);
 
-
-    public Position Move(Position pos)
-    {
-       return  null;
-    }
+    public abstract void AcceptBribe();
 }
 
