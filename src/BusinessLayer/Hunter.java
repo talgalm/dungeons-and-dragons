@@ -21,6 +21,7 @@ public class Hunter extends Player{
         attackPoints += playerLevel*2;
         defensePoints += playerLevel;
         super.LevelUp();
+        System.out.println(String.format("Ygritte received %d arrows to the Quiver\n", playerLevel*10));
     }
 
     public Enemy CastSpecialAbility(ArrayList<Enemy> Enemies){ //Shoot
@@ -30,7 +31,7 @@ public class Hunter extends Player{
                 Enemy unLuckyEnemy = findClosest(rangeEnemies);
                 if (unLuckyEnemy != null) {
                     arrows.TakeFromResourceCurrent(1);
-                    unLuckyEnemy.TakeDamage(attackPoints);
+                    castAssist(this, unLuckyEnemy, GetAttackPoints(), "Shoot");
                 }
             }
         }
@@ -39,9 +40,8 @@ public class Hunter extends Player{
 
     @Override
     public String getAbility() {
-        return "Shoot";
+        return "  Ability: Shoot   arrows' Quiver: " + arrows.GetResourceCurrent()+"/"+arrows.GetResourceMax() +"   ability range: " +range ;
     }
-
     @Override
     public String getDescription() {
         return GetName() + "  Health: " +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()

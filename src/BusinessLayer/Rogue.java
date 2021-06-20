@@ -26,7 +26,7 @@ public class Rogue extends Player{
             energy.TakeFromResourceCurrent(abilityCost);
             List<Enemy> poorEnemiesList = Enemies.stream().filter(t -> t.GetPosition().Range(GetPosition()) < 2).collect(Collectors.toList());
             for( Enemy poorEnemy : poorEnemiesList){
-                poorEnemy.TakeDamage(GetAttackPoints() - poorEnemy.GetRandomDefensePoints());
+                castAssist(this, poorEnemy, GetAttackPoints(), "Fan of Knives");
             }
         }
         return null;
@@ -34,7 +34,7 @@ public class Rogue extends Player{
 
     @Override
     public String getAbility() {
-        return "  Fan of Knives:  cost" + energy.GetResourceCurrent()+"/"+energy.GetResourceMax() +" ability cost" +abilityCost ;
+        return "  Ability: Fan of Knives   energy: " + energy.GetResourceCurrent()+"/"+energy.GetResourceMax() +"   ability cost: " +abilityCost ;
     }
     @Override
     public String getDescription() {

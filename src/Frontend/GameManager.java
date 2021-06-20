@@ -25,10 +25,12 @@ public class GameManager {
                 Board b = BuildLevel(level,ThePlayer);
                 GameLevel gameLevel = new GameLevel(b);
                 gameLevel.init();
+                System.out.println("\n All Enemies are dead. Level up! \n");
             }
         }
-        if(winner)
-            System.out.println("YOU WIN !!!!!!!!!!!!!!!!!!!!");
+        if(winner) {
+            winScreen(chosenNumber);
+        }
     }
 
 
@@ -65,6 +67,7 @@ public class GameManager {
         int YTop = 0;
         int XTop = 0;
         String wantedLevel = "src/levels_dir/level"+levelNumber+".txt";
+        System.out.println(String.format("Level %d ", levelNumber));
         String level = "";
         try {
             File myObj = new File(wantedLevel);
@@ -95,7 +98,7 @@ public class GameManager {
         System.out.println( " -------------------------------------------------------------------------------------- " + "\n" +
             "|                                 Please choose a character:                           |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
-            "|                                  New Character!! 'BusinessLayer.Briber'                            |" +"\n" +
+            "|                                  New Character!! 'Briber'                            |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
             "|         Name        |  Health  |  Attack  |  Defense  |     cash per kill      |      " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
@@ -105,9 +108,9 @@ public class GameManager {
             " A percentage of enemy's health as cash. With this cash, he can BRIBE a Lannister guard|" +"\n" +
             "|       or knight or Queen's Guard (marked as 's' and 'k' and 'q' respectively).       |" +"\n" +
             "|Bribe will cost as much as the health bar of the bribed and will last the whole level |" +"\n" +
-            "|Bribe action will succeed only if BusinessLayer.Briber has enough cash and only 1 bribeable soldier |" +"\n" +
+            "|Bribe action will succeed only if Briber has enough cash and only 1 bribeable soldier |" +"\n" +
             "|                      around his close 'circle' (square around)                       |" +"\n" +
-            "|Bribed soldiers won't come after the BusinessLayer.Briber but will come after other Enemies to fight|" +"\n" +
+            "|Bribed soldiers won't come after the Briber but will come after other Enemies to fight|" +"\n" +
             "|                     (No need to kill bribed enemy, your choice)                      |" +"\n" +
             "|     Enemies will try to attack bribed enemies as well, if the player isn't near      |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
@@ -150,6 +153,16 @@ public class GameManager {
             "" +"\n" +
             "                  To Choose a character please enter the character's number:                  " +"\n" +
             "                 ------------------------------------------------------------           ");
+    }
+
+    public static void winScreen(String number){
+        String title = "King";
+        if(number.equals("3") | number.equals("5") | number.equals("7"))
+            title = "Queen";
+        System.out.println(String.format("You won the game!! You are now The %s of the North", title));
+        System.out.println(String.format("%s of the North!", title));
+        System.out.println(String.format("%s of the North!", title));
+        System.out.println(String.format("%s of the North!", title));
     }
 
 

@@ -88,6 +88,7 @@ public class Board {
     private void playerDead(){
         ThePlayer.SetCharacter('X');
         System.out.println("YOU LOST");
+        PrintGameBoard();
         System.exit(0);
     }
 

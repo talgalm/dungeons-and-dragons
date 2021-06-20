@@ -28,5 +28,9 @@ public class Resource{
             resourceMax += amount;
     }
 
-    public void TakeFromResourceCurrent(int Taken) { resourceCurrent = resourceCurrent - Taken; }
+    public void TakeFromResourceCurrent(int Taken) {
+        if(resourceCurrent-Taken < 0)
+            resourceCurrent = Taken;
+        resourceCurrent -= Taken;
+    }
 }

@@ -3,8 +3,6 @@ package BusinessLayer;
 import Callbacks.DeathCallBack;
 import Callbacks.MessageCallBack;
 
-import java.util.Random;
-
 public abstract class Unit extends Tile{
 
     protected DeathCallBack deathCallBack;
@@ -14,7 +12,6 @@ public abstract class Unit extends Tile{
     protected int defensePoints;
     protected Resource health;
     private InputProvider inputProvider = new InputProvider();
-    private Random random = new Random();
 
     public Unit(char tile, String name, int healthCapacity, int attack, int defence){
         super(tile);
@@ -35,8 +32,8 @@ public abstract class Unit extends Tile{
         return attackPoints;
     }
     public int GetDefensePoints() { return defensePoints; }
-    public int GetRandomAttackPoints() { return random.nextInt(attackPoints);}
-    public int GetRandomDefensePoints() { return random.nextInt(defensePoints); }
+    public int GetRandomAttackPoints() { return RandomSingleton.getInstance().nextInt(attackPoints);}
+    public int GetRandomDefensePoints() { return RandomSingleton.getInstance().nextInt(defensePoints); }
 
 
     public Position MoveTo(char whereTo){
@@ -49,16 +46,30 @@ public abstract class Unit extends Tile{
     public void Combat(Unit unit)
     {
 
-        messageCallBack.Send(this.GetName() + " engaged in combat with " + unit.GetName());
+        messageCallBack.Send("\n" + this.GetName() + " engaged in combat with " + unit.GetName());
         messageCallBack.Send(this.getDescription());
         messageCallBack.Send(unit.getDescription());
         int RA = this.GetRandomAttackPoints();
         int RD = unit.GetRandomDefensePoints();
-        messageCallBack.Send(this.GetName() + " rolls " + RA + " attack points ");
-        messageCallBack.Send(unit.GetName() + " rolls " + RD + " defense points ");
+        messageCallBack.Send(this.GetName() + " rolled " + RA + " attack points ");
+        messageCallBack.Send(unit.GetName() + " rolled " + RD + " defense points ");
         int damage = Math.max((RA-RD ),0);
-        messageCallBack.Send(this.GetName() + " dealt "  +damage+ " to " + unit.GetName());
+        messageCallBack.Send(this.GetName() + " took "  +damage+ " health points from " + unit.GetName() + "\n");
         unit.TakeDamage(damage);
+
+    }
+
+    protected void castAssist(Player player, Enemy enemy, int damage, String abilityName){
+        messageCallBack.Send(String.format("\n%s used the %s on %s", GetName(), abilityName, enemy.GetName()));
+        messageCallBack.Send(enemy.getDescription());
+        int RD = enemy.GetRandomDefensePoints();
+        messageCallBack.Send(String.format("%s's damage is %s attack points", abilityName, damage));
+        messageCallBack.Send(String.format("%s rolled %d defense points", enemy.GetName(), RD));
+        int inflictedDamage = Math.max((damage-RD ),0);
+        messageCallBack.Send(String.format("%s took %d health points from %s\n", GetName(), inflictedDamage, enemy.GetName()));
+        enemy.TakeDamage(inflictedDamage);
+        if(!enemy.IsAlive())
+            player.onAbilityKill(enemy);
 
     }
 

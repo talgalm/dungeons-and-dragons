@@ -15,8 +15,6 @@ public abstract class Enemy extends Unit {
         isBribed = false;
     }
 
-
-
     public int GetExperience(){ return experienceValue; }
 
     public void onEnemyKillAsBribed(Enemy e){
@@ -54,5 +52,7 @@ public abstract class Enemy extends Unit {
 
     public abstract void AcceptBribe();
     public abstract String getDescription();
+
+
 }
 

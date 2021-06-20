@@ -21,19 +21,24 @@ public class Warrior extends Player{
     @Override
     public Enemy CastSpecialAbility(ArrayList<Enemy> Enemies) { //Avenger's Shield
         if(cooldown.GetResourceCurrent() == 0){
-            CooldownToMax();
-            health.AddToResourceCurrent(GetDefensePoints()*10);
-            Enemy unLuckyEnemy = Enemies.stream().filter(t -> t.GetPosition().Range(this.position)<3).findAny().get();
-            int damage = health.GetResourceMax() / 10;
-            unLuckyEnemy.TakeDamage(damage);
-            //(Enemies.stream().filter(t -> t.GetPosition().Range(this.position)<3).findAny().get()).TakeDamage(health.GetResourceMax() / 10);
+            try {
+                CooldownToMax();
+                health.AddToResourceCurrent(GetDefensePoints() * 10);
+                Enemy unLuckyEnemy = Enemies.stream().filter(t -> t.GetPosition().Range(position) < 3).findAny().get();
+                int damage = health.GetResourceMax() / 10;
+                castAssist(this, unLuckyEnemy, damage, "Avenger's Shield");
+                if (!unLuckyEnemy.IsAlive())
+                    onAbilityKill(unLuckyEnemy);
+            }
+            catch(Exception e){}
         }
         return null;
     }
 
+
     @Override
     public String getAbility() {
-        return "  Avenger’s Shield:  cooldown "+cooldown.GetResourceCurrent()+"/"+cooldown.GetResourceMax();
+        return "  Avenger’s Shield: cooldown "+cooldown.GetResourceCurrent()+"/"+cooldown.GetResourceMax();
     }
 
     @Override

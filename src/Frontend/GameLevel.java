@@ -60,6 +60,7 @@ public class GameLevel {
             //end of extra code
             board.TickAll();
         }
+
     }
 
     private char getInput(char[] inputs) {

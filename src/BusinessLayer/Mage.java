@@ -1,6 +1,8 @@
 package BusinessLayer;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Mage extends Player{
@@ -31,12 +33,13 @@ public class Mage extends Player{
         if(mana.GetResourceCurrent() >= manaCost){
             TakeManaCost();
             int hits = 0;
-            Stream<Enemy> enemiesInRange = Enemies.stream().filter(t -> (t.GetPosition().Range(GetPosition()) < abilityRange));
-            while( (hits < hitCount) &  enemiesInRange.count() != 0 ) {
-                Enemy poorEnemy = enemiesInRange.findAny().get();
+            List<Enemy> enemiesInRange = Enemies.stream().filter(t -> (t.GetPosition().Range(GetPosition()) < abilityRange)).collect(Collectors.toList());
+            while( (hits < hitCount) &  enemiesInRange.size() != 0 ) {
+                Enemy poorEnemy = enemiesInRange.get(RandomSingleton.getInstance().nextInt( enemiesInRange.size()));
                 if(poorEnemy != null){ //he can be null, if he dies from a previous hit, and I don't want to check "enemiesInRange" in each loop
-                    poorEnemy.health.TakeFromResourceCurrent(spellPower - poorEnemy.GetRandomDefensePoints());
+                    castAssist(this, poorEnemy, spellPower, "Blizzard");
                 }
+                enemiesInRange = Enemies.stream().filter(t -> (t.GetPosition().Range(GetPosition()) < abilityRange)).collect(Collectors.toList());
                 hits ++;
             }
         }
@@ -53,7 +56,8 @@ public class Mage extends Player{
     }
     @Override
     public String getAbility() {
-        return "  Blizzard: mana pool " +mana.GetResourceCurrent()+"/"+mana.GetResourceMax() + " mana cost" + manaCost + "  spell power" + spellPower +"  " + "  hits count" + hitCount + "   " + abilityRange ;
+        return "  Ability: Blizzard   mana pool: " +mana.GetResourceCurrent()+"/"+mana.GetResourceMax() + "   mana cost: " + manaCost
+                + "   spell power:" + spellPower + "   hits count: " + hitCount + "   ability range: " + abilityRange ;
     }
 
     @Override

@@ -33,7 +33,7 @@ public abstract class Player extends Unit {
         LevelUpDefensePoints(playerLevel);
         toLevelUpExperience = playerLevel*POINTS;
         messageCallBack = System.out::println;
-        messageCallBack.Send(GetName() +" reached level"  +getPlayerLevel() +": +" +10*playerLevel + " +"+(4 * playerLevel) + " +"+playerLevel );
+        messageCallBack.Send(GetName() +" reached level "  +getPlayerLevel() +": +" +10*playerLevel+ " Health Points, +"+(4 * playerLevel) + " Attack Points, +"+playerLevel +" Defence Points\n" );
     }
 
 
@@ -46,13 +46,17 @@ public abstract class Player extends Unit {
 
     protected void onDeath(){
         deathCallBack.Call();
-        messageCallBack.Send("You died ");
     }
     public void onKill(Enemy e){
-        messageCallBack.Send(e.name + " died." + GetName() + " gained " + e.GetExperience() + " experience " );
-        AddExperience(e.GetExperience());
+        onAbilityKill(e);
         SwapPositions(e);
+    }
+
+    public void onAbilityKill(Enemy e){
+        messageCallBack.Send(e.GetName() + " died. " + GetName() + " gained " + e.GetExperience() + " experience points" +"\n");
+        AddExperience(e.GetExperience());
         e.onEnemyDeath();
+        earnCash(e.health.GetResourceMax());
     }
 
     public void accept(Player player) { }
@@ -61,7 +65,6 @@ public abstract class Player extends Unit {
         this.Combat(enemy);
         if (!enemy.IsAlive()) {
             onKill(enemy);
-            earnCash(enemy.health.GetResourceMax());
         }
     }
 

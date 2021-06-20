@@ -29,6 +29,7 @@ public class Briber extends Player{
             char c = m.GetChar();
             if (c == 'q' | c == 's' | c == 'k') {
                 m.AcceptBribe();
+                messageCallBack.Send(String.format("\n%s bribed the %s for an amount of %d cash. He will now fight other enemies.", GetName(), m.GetName(), m.health.GetResourceMax()));
                 return m;
             }
         }

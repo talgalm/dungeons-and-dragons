@@ -70,11 +70,11 @@ public class Monster extends Enemy {
 
     @Override
     public String getDescription() {
-        return GetName() + " Health:" +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
-                + " Attack:" +GetAttackPoints()
-                + " Defense:" +GetDefensePoints()
-                + " Experience Value:" + GetExperience()
-                + " VIsion Range " + visionRange;
+        return GetName() + "  Health: " +getHealth().GetResourceCurrent() + "/" +getHealth().GetResourceMax()
+                + "  Attack:" +GetAttackPoints()
+                + "  Defense:" +GetDefensePoints()
+                + "  Experience Value: " + GetExperience()
+                + "  Vision Range: " + visionRange;
     }
 
     @Override
