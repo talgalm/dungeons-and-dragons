@@ -37,7 +37,8 @@ public abstract class Unit extends Tile{
 
 
     public Position MoveTo(char whereTo){
-        return inputProvider.getNewPosition(GetPosition(), whereTo);
+        Position p = inputProvider.getNewPosition(GetPosition(), whereTo);
+        return p;
     }
     public boolean IsAlive() { return health.GetResourceCurrent() > 0; }
     public void TakeDamage(int damage) { health.SetResourceCurrent(health.GetResourceCurrent()-damage); }

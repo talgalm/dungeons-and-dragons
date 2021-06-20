@@ -30,7 +30,13 @@ public class Board {
 
     public Tile GetTile(Position p){
         List<Tile> tilesInPos = tiles.stream().filter(tile -> p.equals(tile.GetPosition())).collect(Collectors.toList());
-        return tilesInPos.get(0);
+        if (tilesInPos.size() !=0)
+            return tilesInPos.get(0);
+        else
+        {
+            int np = XTop*p.getY() + p.getX();
+            return tiles.get(np);
+        }
     }
 
     public void buildTileList(String stringList, Player ThePlayer)
@@ -82,7 +88,7 @@ public class Board {
         tiles.remove(enemy);
         Empty empty = new Empty('.');
         empty.init(enemy.GetPosition());
-        tiles.add(empty);
+        tiles.add(XTop*enemy.GetPosition().getY() + enemy.GetPosition().getX(),empty);
     }
 
     private void playerDead(){

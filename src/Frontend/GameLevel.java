@@ -40,6 +40,8 @@ public class GameLevel {
             else {
                 Tile t = board.GetTile(playerWishedPosition);
                 t.VisitedBy(player);
+
+
             }
             for (Enemy enemy : Enemies) {
                 Position enemyMove = enemy.Move(player.GetPosition(), bribedEnemies); //try to find player, if no, look for bribed
@@ -49,6 +51,7 @@ public class GameLevel {
                 else{
                     Tile t = board.GetTile(enemyMove);
                     t.VisitedBy(enemy);
+
                 }
             }
             //Extra Code for the bribed enemies
