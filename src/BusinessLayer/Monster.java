@@ -41,7 +41,7 @@ public class Monster extends Enemy {
         return MoveTo(moveArray[rnd]);
     }
 
-    public Position MoveAsBribed(ArrayList<Enemy> enemies) {
+    public Position MoveAsBribed(ArrayList<Enemy> enemies, Player player) {
         Double bestRange = null;
         Enemy closestEnemy = null;
         for (Enemy enemy : enemies) {
@@ -50,14 +50,14 @@ public class Monster extends Enemy {
                 closestEnemy = enemy;
             } else {
                 Double tmpRange = GetPosition().Range(enemy.GetPosition());
-                if (tmpRange < bestRange) {
+                if (tmpRange < bestRange && !enemy.IsTrap()) {
                     bestRange = tmpRange;
                     closestEnemy = enemy;
                 }
             }
         }
         if (closestEnemy.GetPosition() == null)
-            return randomMove();
+            return player.GetPosition();
         else
             return moveToPlayer(closestEnemy.GetPosition());
     }
@@ -79,6 +79,6 @@ public class Monster extends Enemy {
 
     @Override
     public void TickUp() { }
-
+    public Boolean IsTrap(){ return false;}
 
 }

@@ -33,12 +33,13 @@ public class Briber extends Player{
                 return m;
             }
         }
+        messageCallBack.Send(String.format("\n%s tried to bribe but no enemy is around.", GetName()));
         return null;
     }
 
     @Override
     public String getAbility() {
-        return "Bribe";
+        return "  Ability: Bribe   cash: " + cash.GetResourceCurrent() + "  bribe cost: Enemy's health amount" ;
     }
 
     @Override
@@ -52,7 +53,9 @@ public class Briber extends Player{
 
     @Override
     public void earnCash(int healthPoints) {
-        cash.AddToResourceCurrent((healthPoints * cashPercentage)/100);
+        int amount = (healthPoints * cashPercentage)/100;
+        messageCallBack.Send(String.format("\n%s received %d cash.", GetName(), amount));
+        cash.AddToResourceCurrent(amount);
     }
 
     @Override

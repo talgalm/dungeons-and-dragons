@@ -48,10 +48,11 @@ public abstract class Enemy extends Unit {
 
     public abstract Position Move(Position pos, List<Enemy> bribedEnemies);
 
-    public abstract Position MoveAsBribed(ArrayList<Enemy> enemies);
+    public abstract Position MoveAsBribed(ArrayList<Enemy> enemies, Player player);
 
     public abstract void AcceptBribe();
     public abstract String getDescription();
+    public abstract Boolean IsTrap();
 
 
 }
