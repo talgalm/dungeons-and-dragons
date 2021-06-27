@@ -33,7 +33,7 @@ public class Trap extends Enemy{
     public void TickUp() { }
 
     @Override
-    public Position MoveAsBribed(ArrayList<Enemy> enemies) { return null; }
+    public Position MoveAsBribed(ArrayList<Enemy> enemies, Player player) { return null; }
 
     @Override
     public void AcceptBribe() { }
@@ -45,4 +45,5 @@ public class Trap extends Enemy{
                 + "  Defense:" +GetDefensePoints()
                 + "  Experience Value:" + GetExperience();
     }
+    public Boolean IsTrap(){ return true;}
 }

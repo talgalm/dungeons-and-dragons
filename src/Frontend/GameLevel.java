@@ -55,7 +55,7 @@ public class GameLevel {
             }
             //Extra Code for the bribed enemies
             for(Enemy bribedEnemy : bribedEnemies){
-                Position enemyMove = bribedEnemy.MoveAsBribed(Enemies);
+                Position enemyMove = bribedEnemy.MoveAsBribed(Enemies, player);
                 Tile t = board.GetTile(enemyMove);
                 t.VisitedBy(bribedEnemy);
             }
