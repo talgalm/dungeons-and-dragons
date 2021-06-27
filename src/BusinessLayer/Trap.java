@@ -46,4 +46,10 @@ public class Trap extends Enemy{
                 + "  Experience Value:" + GetExperience();
     }
     public Boolean IsTrap(){ return true;}
+    public char ToChar(){
+        if (!visible)
+            return '.';
+        else
+            return 'B';
+    }
 }
