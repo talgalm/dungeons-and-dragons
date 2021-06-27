@@ -33,7 +33,7 @@ public class Briber extends Player{
                 return m;
             }
         }
-        messageCallBack.Send(String.format("\n%s tried to bribe but no enemy is around.", GetName()));
+        messageCallBack.Send(String.format("\n%s tried to bribe but no enemy to bribe is around.", GetName()));
         return null;
     }
 

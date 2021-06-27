@@ -66,6 +66,7 @@ public class Monster extends Enemy {
         isBribed = true;
         character = 'H';
         name = "bribed " + name;
+        visionRange += 3;
     }
 
     @Override

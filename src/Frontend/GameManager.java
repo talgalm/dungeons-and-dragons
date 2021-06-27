@@ -110,9 +110,11 @@ public class GameManager {
             "|Bribe will cost as much as the health bar of the bribed and will last the whole level |" +"\n" +
             "|Bribe action will succeed only if Briber has enough cash and only 1 bribeable soldier |" +"\n" +
             "|                      around his close 'circle' (square around)                       |" +"\n" +
-            "|Bribed soldiers won't come after the Briber but will come after other Enemies to fight|" +"\n" +
+            "|When an enemy get bribed:                                                             |" +"\n" +
+            "|•His range get buffed by 3 points                                                     |" +"\n" +
+            "|•He will search for another enemy to fight with, and the enemy will fight him back    |" +"\n" +
+            "|•if he can't find an enemy in range he will follow after the player                   |" +"\n" +
             "|                     (No need to kill bribed enemy, your choice)                      |" +"\n" +
-            "|     Enemies will try to attack bribed enemies as well, if the player isn't near      |" +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
             " -------------------------------------------------------------------------------------- " +"\n" +
             "|                                          Warriors:                                   |" +"\n" +
