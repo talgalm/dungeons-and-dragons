@@ -48,8 +48,8 @@ public abstract class Player extends Unit {
         deathCallBack.Call();
     }
     public void onKill(Enemy e){
-        onAbilityKill(e);
         SwapPositions(e);
+        onAbilityKill(e);
     }
 
     public void onAbilityKill(Enemy e){

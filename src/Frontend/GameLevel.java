@@ -23,6 +23,7 @@ public class GameLevel {
     {
         char[] inputs = new char[] {'q', 'w', 'e', 'a', 's', 'd'};
         while (!Enemies.isEmpty()) { // or if dead
+            board.OrderTiles();
             board.PrintGameBoard();
             messageCallBack.Send(player.getDescription());
             char c = getInput(inputs);
@@ -40,13 +41,11 @@ public class GameLevel {
             else {
                 Tile t = board.GetTile(playerWishedPosition);
                 t.VisitedBy(player);
-
-
             }
             for (Enemy enemy : Enemies) {
                 Position enemyMove = enemy.Move(player.GetPosition(), bribedEnemies); //try to find player, if no, look for bribed
                 if (enemyMove.getX() == -1) { //if a trap and is close to player
-                    enemy.Combat(player);
+                    enemy.accept(player);
                 }
                 else{
                     Tile t = board.GetTile(enemyMove);

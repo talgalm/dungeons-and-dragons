@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Board {
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private List<Tile> tiles = new ArrayList<>();
     private ArrayList<Enemy> Enemies = new ArrayList<>();
     private int YTop;
     private int XTop;
@@ -87,14 +87,14 @@ public class Board {
         Enemies.remove(enemy);
         tiles.remove(enemy);
         Empty empty = new Empty('.');
+        tiles.add(empty);
         empty.init(enemy.GetPosition());
-        tiles.add(XTop*enemy.GetPosition().getY() + enemy.GetPosition().getX(),empty);
     }
 
     private void playerDead(){
         ThePlayer.SetCharacter('X');
-        System.out.println("YOU LOST");
         PrintGameBoard();
+        System.out.println("YOU LOST");
         System.exit(0);
     }
 
@@ -114,4 +114,7 @@ public class Board {
         tiles.stream().forEach(t -> t.TickUp());
     }
 
+    public void OrderTiles() {
+        tiles = tiles.stream().sorted().collect(Collectors.toList());
+    }
 }
